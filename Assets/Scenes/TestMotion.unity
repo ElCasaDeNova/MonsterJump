@@ -942,7 +942,7 @@ MonoBehaviour:
   groundCheck: {fileID: 917171319}
   mainCamera: {fileID: 1222491619}
   cameraOffset: {x: 0, y: 5, z: -10}
-  cameraRotationSpeed: 0.5
+  cameraRotationSpeed: 0.25
 --- !u!54 &1645755385
 Rigidbody:
   m_ObjectHideFlags: 0
