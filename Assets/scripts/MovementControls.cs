@@ -7,11 +7,15 @@ public class MovementControls : MonoBehaviour
     private Rigidbody rigidBody;
     private InputAction moveAction;
     private InputAction jumpAction;
+    private InputAction sprintAction;  // Added for sprint functionality
     private bool isGrounded;
     private bool canJump;
+    private bool isSprinting;  // Tracks if sprinting is active
 
     [SerializeField]
     private float speed = 6f;
+    [SerializeField]
+    private float sprintSpeed = 10f; // Speed when sprinting
     [SerializeField]
     private float jumpForce = 6f;
     [SerializeField]
@@ -22,7 +26,7 @@ public class MovementControls : MonoBehaviour
     private LayerMask groundLayerMask;
 
     [SerializeField]
-    private Camera mainCamera;  // Reference to the main camera
+    private Camera mainCamera;
     [SerializeField]
     private Vector3 cameraOffset = new Vector3(0, 5, -10); // Offset for camera position
     [SerializeField]
@@ -51,6 +55,11 @@ public class MovementControls : MonoBehaviour
         jumpAction = controls.Player.Jump;
         jumpAction.performed += OnJump;
         jumpAction.Enable();
+
+        // Enable sprint action
+        sprintAction = controls.Player.Sprint;
+        sprintAction.performed += OnSprint; // Register sprint callback
+        sprintAction.Enable();
     }
 
     private void OnDisable()
@@ -58,15 +67,28 @@ public class MovementControls : MonoBehaviour
         moveAction.Disable();
         jumpAction.performed -= OnJump;
         jumpAction.Disable();
+
+        // Disable sprint action
+        sprintAction.performed -= OnSprint; // Unregister sprint callback
+        sprintAction.Disable();
     }
 
     private void OnJump(InputAction.CallbackContext context)
     {
         if (isGrounded || canJump)
         {
-            rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z); // Reset the vertical velocity
+            rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z); // Reset vertical velocity
             rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             canJump = false; // Reset jump ability
+        }
+    }
+
+    private void OnSprint(InputAction.CallbackContext context)
+    {
+        // Enable sprint only if grounded
+        if (isGrounded)
+        {
+            isSprinting = true;
         }
     }
 
@@ -77,9 +99,15 @@ public class MovementControls : MonoBehaviour
 
         if (isGrounded)
         {
-            // If grounded, reset coyote time
+            // Reset coyote time if grounded
             coyoteTimeCounter = coyoteTime;
-            canJump = true; // Allow jumping again when grounded
+            canJump = true; // Allow jumping when grounded
+
+            // Reset sprint status if grounded
+            if (sprintAction.ReadValue<float>() == 0)
+            {
+                isSprinting = false; // Sprint stops when the sprint key is released on the ground
+            }
         }
         else
         {
@@ -87,30 +115,33 @@ public class MovementControls : MonoBehaviour
             if (coyoteTimeCounter > 0f)
                 coyoteTimeCounter -= Time.deltaTime;
             else
-                canJump = false; // No more coyote time, can't jump
+                canJump = false; // Out of coyote time, cannot jump
         }
 
         // Get movement direction from input
-        Vector3 moveDir = moveAction.ReadValue<Vector2>();
+        Vector2 moveInput = moveAction.ReadValue<Vector2>();
         Vector3 vel = rigidBody.velocity;
+
+        // Use sprint speed if sprint is active, otherwise use normal speed
+        float currentSpeed = isSprinting ? sprintSpeed : speed;
 
         // Move character based on input direction, considering camera's orientation
         Vector3 forward = mainCamera.transform.forward;
         Vector3 right = mainCamera.transform.right;
 
-        forward.y = 0;  // Keep the forward direction flat
-        right.y = 0;    // Keep the right direction flat
+        forward.y = 0;  // Flatten the forward vector
+        right.y = 0;    // Flatten the right vector
         forward.Normalize();
         right.Normalize();
 
-        Vector3 moveDirection = (forward * moveDir.y + right * moveDir.x).normalized;
+        Vector3 moveDirection = (forward * moveInput.y + right * moveInput.x).normalized;
 
-        vel.x = speed * moveDirection.x;
-        vel.z = speed * moveDirection.z;
+        vel.x = currentSpeed * moveDirection.x;
+        vel.z = currentSpeed * moveDirection.z;
         rigidBody.velocity = new Vector3(vel.x, rigidBody.velocity.y, vel.z); // Keep the y-velocity unchanged for gravity
 
-        // Rotate the character towards movement direction
-        if (moveDir.sqrMagnitude > 0.1f)
+        // Rotate the character towards the movement direction
+        if (moveInput.sqrMagnitude > 0.1f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             rigidBody.MoveRotation(Quaternion.Slerp(rigidBody.rotation, targetRotation, playerRotationSpeed));
