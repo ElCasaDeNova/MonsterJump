@@ -40,6 +40,8 @@ public class MovementControls : MonoBehaviour
 
     private Controls controls; // Input system controls reference
 
+    private bool canDoubleJump; // Flag for double jump
+
     private void Awake()
     {
         controls = new Controls();
@@ -85,15 +87,21 @@ public class MovementControls : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        // Trigger jump only if the player is grounded or within coyote time
         if (isGrounded || canJump)
         {
-            // Reset vertical velocity before applying the jump force
-            rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z);
+            rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z); // Reset vertical velocity
             rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            canJump = false; // Disable jump until the player lands
+            canJump = false; // Single jump used
+            canDoubleJump = true; // Enable double jump
+        }
+        else if (canDoubleJump) // Double jump allowed
+        {
+            rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z); // Reset vertical velocity
+            rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            canDoubleJump = false; // Disable double jump after use
         }
     }
+
 
     private void OnSprint(InputAction.CallbackContext context)
     {
