@@ -6,8 +6,6 @@ public class UIController : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-
-        GameManager.Instance.varExemple++;
     }
 
     // Update is called once per frame

@@ -38,6 +38,9 @@ public class MovementControls : MonoBehaviour
     private float coyoteTime = 0.2f; // Time window after leaving the ground during which a jump can still be triggered
     private float coyoteTimeCounter; // Counter to keep track of coyote time
 
+    [SerializeField]
+    private Animator animator; // To Modify Parameters of Walking and Jump Animations
+
     private Controls controls; // Input system controls reference
 
     private bool canDoubleJump; // Flag for double jump
@@ -114,16 +117,16 @@ public class MovementControls : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Check if the player is touching the ground
+        // Vérifier si le joueur est au sol
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, 0.1f, groundLayerMask);
 
         if (isGrounded)
         {
-            // Reset coyote time and allow jumping when grounded
+            // Réinitialisation du coyote time et possibilité de sauter si le joueur est au sol
             coyoteTimeCounter = coyoteTime;
             canJump = true;
 
-            // Stop sprinting when the sprint key is released
+            // Si le joueur relâche la touche sprint, on arrête de courir
             if (sprintAction.ReadValue<float>() == 0)
             {
                 isSprinting = false;
@@ -131,50 +134,60 @@ public class MovementControls : MonoBehaviour
         }
         else
         {
-            // Decrease coyote time counter when in the air
+            // Diminution du compteur de coyote time si le joueur est dans les airs
             if (coyoteTimeCounter > 0f)
                 coyoteTimeCounter -= Time.deltaTime;
             else
-                canJump = false; // No jump allowed if coyote time is over
+                canJump = false; // On ne peut plus sauter si le coyote time est écoulé
         }
 
-        // Read movement input and calculate velocity
+        // Lecture des entrées de mouvement
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
         Vector3 vel = rigidBody.velocity;
 
-        // Determine the current speed based on sprint status
+        // Définir la vitesse en fonction du sprint
         float currentSpeed = isSprinting ? sprintSpeed : speed;
 
-        // Calculate movement direction based on camera orientation
+        // Calcul de la direction du mouvement en fonction de la caméra
         Vector3 forward = mainCamera.transform.forward;
         Vector3 right = mainCamera.transform.right;
 
-        // Flatten the direction vectors to prevent unintended vertical movement
-        forward.y = 0;
-        right.y = 0;
-        forward.Normalize();
-        right.Normalize();
+        forward.y = 0; // On annule la composante verticale
+        right.y = 0; // On annule la composante verticale
+        forward.Normalize(); // Normalisation pour éviter les déplacements diagonaux
+        right.Normalize(); // Normalisation pour éviter les déplacements diagonaux
 
-        Vector3 moveDirection = (forward * moveInput.y + right * moveInput.x).normalized;
+        // Calcul du mouvement en fonction de la direction de la caméra
+        Vector3 moveDirection = forward * moveInput.y + right * moveInput.x;
 
-        // Check for collisions that could indicate wall contact
+        // Appliquer la direction du mouvement local
+        vel.x = currentSpeed * moveDirection.x;
+        vel.z = currentSpeed * moveDirection.z;
+
+        // Vérification des collisions (pour éviter de s'accrocher aux murs)
         bool isAgainstWall = Physics.Raycast(transform.position, moveDirection, 0.5f);
 
-        // Apply movement if not against a wall
+        // Appliquer la vitesse au Rigidbody si on ne touche pas un mur
         if (!isAgainstWall)
         {
-            vel.x = currentSpeed * moveDirection.x;
-            vel.z = currentSpeed * moveDirection.z;
             rigidBody.velocity = new Vector3(vel.x, rigidBody.velocity.y, vel.z);
         }
 
-        // Rotate the player towards the direction of movement
-        if (moveInput.sqrMagnitude > 0.1f)
+        // Mettre à jour les paramètres de l'Animator pour les animations
+        // Ce qui compte ici, c'est le mouvement local du personnage par rapport à sa propre orientation
+        animator.SetFloat("InputX", moveInput.x); // Mouvement horizontal relatif à l'orientation du personnage
+        animator.SetFloat("InputZ", moveInput.y); // Mouvement avant/arrière relatif à l'orientation du personnage
+
+        // Faire tourner le personnage en fonction de la direction du mouvement
+        if (moveInput.sqrMagnitude > 0.1f) // Si on bouge
         {
+            // Faire tourner le personnage vers la direction du mouvement (local)
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             rigidBody.MoveRotation(Quaternion.Slerp(rigidBody.rotation, targetRotation, playerRotationSpeed));
         }
     }
+
+
 
     private void Update()
     {
