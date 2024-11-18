@@ -39,7 +39,7 @@ public class MovementControls : MonoBehaviour
     private float coyoteTimeCounter; // Counter to keep track of coyote time
 
     [SerializeField]
-    private Animator animator; // To Modify Parameters of Walking and Jump Animations
+    private Animator animator; // To modify parameters of walking and jump animations
 
     private Controls controls; // Input system controls reference
 
@@ -47,6 +47,7 @@ public class MovementControls : MonoBehaviour
 
     private void Awake()
     {
+        // Get private variables
         controls = new Controls();
         rigidBody = GetComponent<Rigidbody>();
         groundLayerMask = LayerMask.GetMask("Ground");
@@ -62,6 +63,7 @@ public class MovementControls : MonoBehaviour
         GetComponent<Collider>().material = noFrictionMaterial;
     }
 
+    // Called when GameObject is Activate
     private void OnEnable()
     {
         // Enable movement, jump, and sprint actions
@@ -77,6 +79,7 @@ public class MovementControls : MonoBehaviour
         sprintAction.Enable();
     }
 
+    // Called when GameObject is DeActivate
     private void OnDisable()
     {
         // Disable movement, jump, and sprint actions
@@ -88,24 +91,35 @@ public class MovementControls : MonoBehaviour
         sprintAction.Disable();
     }
 
+    // Called when Jump button is pressed
     private void OnJump(InputAction.CallbackContext context)
     {
         if (isGrounded || canJump)
         {
-            rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z); // Reset vertical velocity
-            rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            canJump = false; // Single jump used
-            canDoubleJump = true; // Enable double jump
+            Jump();
         }
         else if (canDoubleJump) // Double jump allowed
         {
-            rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z); // Reset vertical velocity
-            rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            canDoubleJump = false; // Disable double jump after use
+            DoubleJump();
         }
     }
 
+    private void Jump()
+    {
+        rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z); // Reset vertical velocity
+        rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        canJump = false; // Single jump used
+        canDoubleJump = true; // Enable double jump
+    }
 
+    private void DoubleJump()
+    {
+        rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z); // Reset vertical velocity
+        rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        canDoubleJump = false; // Disable double jump after use
+    }
+
+    // Called when Sprint button is pressed
     private void OnSprint(InputAction.CallbackContext context)
     {
         // Enable sprint only when the player is on the ground
@@ -115,79 +129,130 @@ public class MovementControls : MonoBehaviour
         }
     }
 
+    // Called at Fixed Frequences (50 times per second)
     private void FixedUpdate()
     {
-        // Vérifier si le joueur est au sol
+        // Check if the player is on the ground
         isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, 0.1f, groundLayerMask);
 
+        // Deal with Coyote Jump (Allow to jump a small time after falling)
         if (isGrounded)
         {
-            // Réinitialisation du coyote time et possibilité de sauter si le joueur est au sol
-            coyoteTimeCounter = coyoteTime;
-            canJump = true;
-
-            // Si le joueur relâche la touche sprint, on arrête de courir
-            if (sprintAction.ReadValue<float>() == 0)
-            {
-                isSprinting = false;
-            }
+            // Reset Coyote Jump Countdown
+            ResetCoyoteJump();
         }
         else
         {
-            // Diminution du compteur de coyote time si le joueur est dans les airs
-            if (coyoteTimeCounter > 0f)
-                coyoteTimeCounter -= Time.deltaTime;
-            else
-                canJump = false; // On ne peut plus sauter si le coyote time est écoulé
+            // Start Coyote Jump Countdown
+            StartCoyoteTime();
         }
 
-        // Lecture des entrées de mouvement
-        Vector2 moveInput = moveAction.ReadValue<Vector2>();
-        Vector3 vel = rigidBody.velocity;
-
-        // Définir la vitesse en fonction du sprint
+        // Set the speed (bigger if sprinting)
         float currentSpeed = isSprinting ? sprintSpeed : speed;
 
-        // Calcul de la direction du mouvement en fonction de la caméra
+        // Read movement inputs
+        Vector2 moveInput = moveAction.ReadValue<Vector2>();
+
+        // Calculate Velocity
+        Vector3 vel = rigidBody.velocity;
+
+        // Calculte Movement Direction
+        Vector3 moveDirection = CalculateMovementDirection(moveInput);
+
+        ApplyMovement(vel, currentSpeed, moveDirection);
+
+        // Update animator parameters for walking animations
+        animator.SetFloat("InputX", moveInput.x);
+        animator.SetFloat("InputY", moveInput.y);
+
+        // Rotate only if the character is not facing the same direction as the camera
+        bool playerIsMoving = moveInput.sqrMagnitude > 0.1f;
+        if (playerIsMoving)
+        {
+            RotateCharacter();
+        }
+    }
+
+    private void ResetCoyoteJump()
+    {
+        // Reset coyote time and allow jumping if the player is on the ground
+        coyoteTimeCounter = coyoteTime;
+        canJump = true;
+
+        // If the player releases the sprint button, stop running
+        if (sprintAction.ReadValue<float>() == 0)
+        {
+            isSprinting = false;
+        }
+
+    }
+
+    private void StartCoyoteTime()
+    {
+        // Decrease the coyote time counter if the player is in the air
+        if (coyoteTimeCounter > 0f)
+            coyoteTimeCounter -= Time.deltaTime;
+        else
+            canJump = false; // Cannot jump if coyote time has expired
+    }
+
+    private Vector3 CalculateMovementDirection(Vector2 moveInput)
+    {
+        // Calculate movement direction based on the camera
         Vector3 forward = mainCamera.transform.forward;
         Vector3 right = mainCamera.transform.right;
 
-        forward.y = 0; // On annule la composante verticale
-        right.y = 0; // On annule la composante verticale
-        forward.Normalize(); // Normalisation pour éviter les déplacements diagonaux
-        right.Normalize(); // Normalisation pour éviter les déplacements diagonaux
+        forward.y = 0; // Ignore verticality
+        right.y = 0; // Ignore verticality
+        forward.Normalize(); // Normalize to avoid diagonal movement
+        right.Normalize(); // Normalize to avoid diagonal movement
 
-        // Calcul du mouvement en fonction de la direction de la caméra
-        Vector3 moveDirection = forward * moveInput.y + right * moveInput.x;
+        return forward * moveInput.y + right * moveInput.x;
+    }
 
-        // Appliquer la direction du mouvement local
+    private void ApplyMovement(Vector3 vel, float currentSpeed, Vector3 moveDirection)
+    {
+        // Apply movement direction locally
         vel.x = currentSpeed * moveDirection.x;
         vel.z = currentSpeed * moveDirection.z;
 
-        // Vérification des collisions (pour éviter de s'accrocher aux murs)
-        bool isAgainstWall = Physics.Raycast(transform.position, moveDirection, 0.5f);
+        CheckWallCollision(moveDirection, vel);
+    }
 
-        // Appliquer la vitesse au Rigidbody si on ne touche pas un mur
-        if (!isAgainstWall)
+    private void RotateCharacter()
+    {
+        // Calculate the forward direction of the camera and the character
+        Vector3 cameraForward = mainCamera.transform.forward;
+        cameraForward.y = 0; // Ignore vertical component
+        cameraForward.Normalize(); // Normalize for accurate comparison
+
+        Vector3 characterForward = transform.forward;
+        characterForward.y = 0; // Ignore vertical component
+        characterForward.Normalize(); // Normalize for accurate comparison
+
+        // Check if the character's forward direction is significantly different from the camera's forward direction
+        float angleBetweenCameraAndCharacter = Vector3.Angle(characterForward, cameraForward);
+
+        // Rotate only if the angle exceeds a small threshold (e.g., 5 degrees) to ensure they are not aligned
+        if (angleBetweenCameraAndCharacter > 5f)
         {
-            rigidBody.velocity = new Vector3(vel.x, rigidBody.velocity.y, vel.z);
-        }
-
-        // Mettre à jour les paramètres de l'Animator pour les animations
-        // Ce qui compte ici, c'est le mouvement local du personnage par rapport à sa propre orientation
-        animator.SetFloat("InputX", moveInput.x); // Mouvement horizontal relatif à l'orientation du personnage
-        animator.SetFloat("InputZ", moveInput.y); // Mouvement avant/arrière relatif à l'orientation du personnage
-
-        // Faire tourner le personnage en fonction de la direction du mouvement
-        if (moveInput.sqrMagnitude > 0.1f) // Si on bouge
-        {
-            // Faire tourner le personnage vers la direction du mouvement (local)
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            // Rotate the character to face the direction of the camera
+            Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
             rigidBody.MoveRotation(Quaternion.Slerp(rigidBody.rotation, targetRotation, playerRotationSpeed));
         }
     }
 
+    private void CheckWallCollision(Vector3 moveDirection, Vector3 vel)
+    {
+        // Check for collisions (to avoid sticking to walls)
+        bool isAgainstWall = Physics.Raycast(transform.position, moveDirection, 0.5f);
 
+        // Apply speed to the Rigidbody if not touching a wall
+        if (!isAgainstWall)
+        {
+            rigidBody.velocity = new Vector3(vel.x, rigidBody.velocity.y, vel.z);
+        }
+    }
 
     private void Update()
     {
