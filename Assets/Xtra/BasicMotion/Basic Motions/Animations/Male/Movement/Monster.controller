@@ -73,9 +73,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.57272714
+  m_TransitionDuration: 0.4135997
   m_TransitionOffset: 0
-  m_ExitTime: 0.30660105
+  m_ExitTime: 0
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -113,9 +113,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.3575096
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75624335
+  m_TransitionDuration: 0.49248984
+  m_TransitionOffset: 0.06842494
+  m_ExitTime: 0.49777853
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -129,7 +129,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Jump
-  m_Speed: 1
+  m_Speed: 0.4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4330352966640375269}
@@ -143,7 +143,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 2cf1a55e40aeebf4ebdcaf62692fa479, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1d3a054f06a34c648a25dc39ff408b17, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
