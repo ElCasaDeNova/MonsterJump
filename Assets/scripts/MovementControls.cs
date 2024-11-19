@@ -47,6 +47,9 @@ public class MovementControls : MonoBehaviour
 
     private bool wasGrounded = false;
 
+    [SerializeField]
+    private float fallSpeedIncrease = 1f;
+
     private void Awake()
     {
         // Get private variables
@@ -159,7 +162,15 @@ public class MovementControls : MonoBehaviour
             StartCoyoteTime();
         }
 
+        // Help to know if character was Falling or Grounded
         wasGrounded = isGrounded;
+
+        // Add Super Jump Gravity
+        bool isFalling = rigidBody.velocity.y < 0;
+        if (isFalling)
+        {
+            AddFallingForce();
+        }
 
         // Set the speed (bigger if sprinting)
         float currentSpeed = isSprinting ? sprintSpeed : speed;
@@ -185,6 +196,11 @@ public class MovementControls : MonoBehaviour
         {
             RotateCharacter();
         }
+    }
+
+    private void AddFallingForce()
+    {
+        rigidBody.velocity += Vector3.down * fallSpeedIncrease * Time.deltaTime;
     }
 
     private void OnLanding()
