@@ -45,6 +45,8 @@ public class MovementControls : MonoBehaviour
 
     private bool canDoubleJump; // Flag for double jump
 
+    private bool wasGrounded = false;
+
     private void Awake()
     {
         // Get private variables
@@ -110,10 +112,17 @@ public class MovementControls : MonoBehaviour
         rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         canJump = false; // Single jump used
         canDoubleJump = true; // Enable double jump
+
+        // Launch Animation
+        animator.SetBool("isGrounded", false);
+        animator.SetBool("isJumping", true);
     }
 
     private void DoubleJump()
     {
+        // Launch Animation
+        animator.SetBool("isDoubleJumping", true);
+
         rigidBody.velocity = new Vector3(rigidBody.velocity.x, 0f, rigidBody.velocity.z); // Reset vertical velocity
         rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         canDoubleJump = false; // Disable double jump after use
@@ -138,14 +147,19 @@ public class MovementControls : MonoBehaviour
         // Deal with Coyote Jump (Allow to jump a small time after falling)
         if (isGrounded)
         {
-            // Reset Coyote Jump Countdown
-            ResetCoyoteJump();
+            if (!wasGrounded) // if character was Jumping
+            {
+                OnLanding();
+            }
+            ResetCoyoteJump(); // Reset Coyote Jump Countdown
         }
         else
         {
             // Start Coyote Jump Countdown
             StartCoyoteTime();
         }
+
+        wasGrounded = isGrounded;
 
         // Set the speed (bigger if sprinting)
         float currentSpeed = isSprinting ? sprintSpeed : speed;
@@ -173,6 +187,11 @@ public class MovementControls : MonoBehaviour
         }
     }
 
+    private void OnLanding()
+    {
+        ResetAnimator();
+    }
+
     private void ResetCoyoteJump()
     {
         // Reset coyote time and allow jumping if the player is on the ground
@@ -185,6 +204,13 @@ public class MovementControls : MonoBehaviour
             isSprinting = false;
         }
 
+    }
+
+    private void ResetAnimator()
+    {
+        animator.SetBool("isJumping", false);
+        animator.SetBool("isDoubleJumping", false);
+        animator.SetBool("isGrounded", true);
     }
 
     private void StartCoyoteTime()
