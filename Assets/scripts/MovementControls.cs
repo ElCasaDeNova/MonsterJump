@@ -144,6 +144,7 @@ public class MovementControls : MonoBehaviour
         if (isGrounded)
         {
             isSprinting = true;
+            animator.SetBool("isSprinting", true);
         }
     }
 
@@ -224,6 +225,7 @@ public class MovementControls : MonoBehaviour
         if (sprintAction.ReadValue<float>() == 0)
         {
             isSprinting = false;
+            animator.SetBool("isSprinting", false);
         }
 
     }
