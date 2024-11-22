@@ -51,6 +51,10 @@ public class MovementControls : MonoBehaviour
     [SerializeField]
     private float fallSpeedIncrease = 1f;
 
+    [SerializeField]
+    private float animationSprintBoost = 1.1f;
+    private float animatorSpeed;
+
     private void Awake()
     {
         // Get private variables
@@ -67,6 +71,8 @@ public class MovementControls : MonoBehaviour
             frictionCombine = PhysicMaterialCombine.Minimum
         };
         GetComponent<Collider>().material = noFrictionMaterial;
+
+        animatorSpeed = animator.speed;
     }
 
     // Called when GameObject is Activate
@@ -145,6 +151,8 @@ public class MovementControls : MonoBehaviour
         {
             isSprinting = true;
             animator.SetBool("isSprinting", true);
+            animatorSpeed = animator.speed;
+            animator.speed = animator.speed * animationSprintBoost;
         }
     }
 
@@ -167,6 +175,7 @@ public class MovementControls : MonoBehaviour
         {
             // Start Coyote Jump Countdown
             StartCoyoteTime();
+            animator.SetBool("isGrounded", false);
         }
 
         // Help to know if character was Falling or Grounded
@@ -226,6 +235,7 @@ public class MovementControls : MonoBehaviour
         {
             isSprinting = false;
             animator.SetBool("isSprinting", false);
+            animator.speed = animatorSpeed;
         }
 
     }

@@ -2056,6 +2056,7 @@ MonoBehaviour:
   coyoteTime: 0.1
   animator: {fileID: 1645755388}
   fallSpeedIncrease: 3
+  animationSprintBoost: 1.5
 --- !u!54 &1645755385
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2341,6 +2342,9 @@ MonoBehaviour:
   voiceSource: {fileID: 1645755390}
   stepSound: {fileID: 8300000, guid: 7c518e8469a403b4c981664ecb28a79a, type: 3}
   voiceSound: {fileID: 0}
+  minimumInterval: 0.2
+  minimumsprintInterval: 0.15
+  animator: {fileID: 1645755388}
 --- !u!1 &1835205585
 GameObject:
   m_ObjectHideFlags: 0
