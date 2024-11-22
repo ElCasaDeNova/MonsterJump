@@ -8,6 +8,7 @@ public class MovementControls : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction sprintAction;
+    private InputAction lookAction;
     private bool isGrounded;
     private bool canJump;
     private bool isSprinting;
@@ -82,6 +83,9 @@ public class MovementControls : MonoBehaviour
         sprintAction = controls.Player.Sprint;
         sprintAction.performed += OnSprint;
         sprintAction.Enable();
+
+        lookAction = controls.Player.Look;
+        lookAction.Enable();
     }
 
     // Called when GameObject is DeActivate
@@ -94,6 +98,8 @@ public class MovementControls : MonoBehaviour
 
         sprintAction.performed -= OnSprint;
         sprintAction.Disable();
+
+        lookAction.Disable();
     }
 
     // Called when Jump button is pressed
@@ -304,18 +310,23 @@ public class MovementControls : MonoBehaviour
 
     private void HandleCameraRotation()
     {
-        // Get mouse input for rotating the camera
-        float mouseX = Mouse.current.delta.x.ReadValue() * cameraRotationSpeed;
+        // Get the delta value from the lookAction (mouse or controller movement)
+        Vector2 lookDelta = lookAction.ReadValue<Vector2>();
+
+        // Apply horizontal movement (X axis) for camera rotation
+        float mouseX = lookDelta.x * cameraRotationSpeed;
 
         // Update the camera's rotation angle
         currentAngleY += mouseX;
         Quaternion rotation = Quaternion.Euler(0, currentAngleY, 0);
 
-        // Set the camera position based on the player's position and rotation
+        // Calculate the camera's offset based on the rotation
         Vector3 offset = rotation * cameraOffset;
+
+        // Update the camera's position
         mainCamera.transform.position = transform.position + offset;
 
-        // Make the camera look at the player
+        // Make the camera look at the player (with a slight upward offset)
         mainCamera.transform.LookAt(transform.position + Vector3.up);
     }
 }
