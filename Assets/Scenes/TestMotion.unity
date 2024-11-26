@@ -1360,6 +1360,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster
       objectReference: {fileID: 0}
+    - target: {fileID: 2474656650275536067, guid: 9fec5536c0854c041a8ed2e14ab381df,
+        type: 3}
+      propertyPath: landingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7d65afb5fe7bb7e41a03b001f5acfbde, type: 3}
+    - target: {fileID: 2474656650275536067, guid: 9fec5536c0854c041a8ed2e14ab381df,
+        type: 3}
+      propertyPath: landingVolumeReduction
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 2765787408414068392, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
       propertyPath: m_CollisionDetection
@@ -1544,7 +1554,7 @@ SceneRoots:
   - {fileID: 1369886465}
   - {fileID: 7045135123526418309}
   - {fileID: 1922486424}
-  - {fileID: 1513566037938759791}
   - {fileID: 1635872216}
   - {fileID: 682077770}
   - {fileID: 387209882}
+  - {fileID: 1513566037938759791}
