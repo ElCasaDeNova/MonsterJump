@@ -64,6 +64,8 @@ public class MovementControls : MonoBehaviour
 
     private float inputDeadZone = 0.01f;
 
+    private CharacterSoundEffect characterSoundEffect;
+
     private void Awake()
     {
         // Get private variables
@@ -71,6 +73,7 @@ public class MovementControls : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         groundLayerMask = LayerMask.GetMask("Ground");
         mainCamera = Camera.main;
+        characterSoundEffect = GetComponent<CharacterSoundEffect>();
 
         // Create a physic material with no friction to prevent sticking to walls
         noFrictionMaterial = new PhysicMaterial
@@ -144,6 +147,8 @@ public class MovementControls : MonoBehaviour
 
     private void DoubleJump()
     {
+        characterSoundEffect.PlayJumpVoice();
+
         // Launch Animation
         animator.SetBool("isDoubleJumping", true);
 

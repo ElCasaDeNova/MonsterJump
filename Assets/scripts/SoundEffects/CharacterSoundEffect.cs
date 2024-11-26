@@ -21,6 +21,10 @@ public class CharacterSoundEffect : MonoBehaviour
     private float minimumInterval = 0.2f;
     [SerializeField]
     private float minimumSprintInterval = 0.15f;
+
+    [SerializeField]
+    float originalVoicePitch = 1f;
+
     [SerializeField]
     private Animator animator;
 
@@ -84,6 +88,8 @@ public class CharacterSoundEffect : MonoBehaviour
 
     void PlayLandingSound()
     {
+        stepSource.pitch = originalStepPitch;
+
         if (Time.time - lastLandingTime >= minimumLandingInterval)
         {
             if (stepSource != null && landingSound != null)
@@ -104,11 +110,13 @@ public class CharacterSoundEffect : MonoBehaviour
         }
     }
 
-    void PlayJumpVoice()
+    public void PlayJumpVoice()
     {
+        voiceSource.pitch = originalVoicePitch;
+
         if (voiceSource != null && voiceSound != null)
         {
-            voiceSource.pitch = Random.Range(0.8f, 1.2f);
+            voiceSource.pitch = originalVoicePitch * Random.Range(0.95f, 1.05f);
             voiceSource.clip = voiceSound;
             voiceSource.Play();
         }
