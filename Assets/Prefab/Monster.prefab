@@ -650,6 +650,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2474656650275536067}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1955193831175975466}
   m_SourcePrefab: {fileID: 100100000, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc, type: 3}
 --- !u!4 &538653378530777508 stripped
 Transform:
@@ -946,6 +950,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   cameraOffset: {x: 0, y: 4, z: -8}
   cameraRotationSpeed: 0.25
+  smoothRotationSpeed: 0.1
   coyoteTime: 0.1
   animator: {fileID: 4396374652555241458}
   fallSpeedIncrease: 3
@@ -969,3 +974,15 @@ MonoBehaviour:
   minimumInterval: 0.2
   minimumsprintInterval: 0.15
   animator: {fileID: 4396374652555241458}
+--- !u!114 &1955193831175975466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878904276071760670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd24cbb74121c449a89bbe9073215d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
