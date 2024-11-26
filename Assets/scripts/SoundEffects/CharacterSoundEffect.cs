@@ -76,7 +76,6 @@ public class CharacterSoundEffect : MonoBehaviour
     {
         float randomPitch = Random.Range(0.95f, 1.05f);
         stepSource.pitch = originalStepPitch * randomPitch;
-        Debug.Log(stepSource.pitch);
 
         stepSource.volume = 1f;
 
