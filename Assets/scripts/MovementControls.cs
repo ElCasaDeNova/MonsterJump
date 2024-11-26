@@ -162,7 +162,7 @@ public class MovementControls : MonoBehaviour
     private void FixedUpdate()
     {
         // Check if the player is on the ground
-        isGrounded = Physics.Raycast(groundCheck.position, Vector3.down, 0.1f, groundLayerMask);
+        isGrounded = CheckIfGrounded();
 
         // Deal with Coyote Jump (Allow to jump a small time after falling)
         if (isGrounded)
@@ -215,6 +215,44 @@ public class MovementControls : MonoBehaviour
             RotateCharacter();
         }
     }
+
+    private bool CheckIfGrounded()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(groundCheck.position, Vector3.down, out hit, 0.5f, groundLayerMask))
+        {
+            // Check if the ground is an unstable platform
+            if (hit.collider.CompareTag("UnstablePlatform"))
+            {
+                // If the platform is unstable, we add a bit of tolerance
+                Vector3 platformNormal = hit.normal; // Normal of the platform
+                float distanceToPlatform = hit.distance; // Distance from the platform
+
+                // Check if we are close enough to the platform to be considered grounded
+                if (distanceToPlatform < 0.3f && Mathf.Abs(platformNormal.y) > 0.1f)
+                {
+                    // Check if the platform is moving vertically (i.e., if the character is moving up or down with it)
+                    Vector3 platformVelocity = hit.rigidbody != null ? hit.rigidbody.velocity : Vector3.zero;
+
+                    // Check if the player's vertical velocity is close to the platform's vertical velocity
+                    // This ensures the player is moving with the platform
+                    if (Mathf.Abs(rigidBody.velocity.y - platformVelocity.y) < 0.1f)
+                    {
+                        // If the player's vertical velocity is close to the platform's velocity, we consider the player
+                        // to be moving up or down with the platform
+                        return true;
+                    }
+                }
+            }
+
+            // If it's another type of stable ground, we return true as normal
+            return true;
+        }
+
+        // If no ground is found, return false
+        return false;
+    }
+
 
     private void AddFallingForce()
     {

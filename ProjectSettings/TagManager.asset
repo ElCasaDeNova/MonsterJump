@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MovingPlatform
   - StaticPlatform
+  - UnstablePlatform
   layers:
   - Default
   - TransparentFX
