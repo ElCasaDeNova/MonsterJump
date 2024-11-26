@@ -24,6 +24,11 @@ public class MovementControls : MonoBehaviour
     [SerializeField]
     private Transform groundCheck; // Transform used to check if the player is grounded
 
+    [SerializeField]
+    private float inputSmoothSpeed = 5f; //Smooth input speed
+    private float smoothedInputX = 0f;
+    private float smoothedInputY = 0f;
+
     private LayerMask groundLayerMask; // Layer mask to identify what is considered ground
     private PhysicMaterial noFrictionMaterial; // Material to reduce friction and prevent sticking to walls
 
@@ -56,6 +61,8 @@ public class MovementControls : MonoBehaviour
     [SerializeField]
     private float animationSprintBoost = 1.1f;
     private float animatorSpeed;
+
+    private float inputDeadZone = 0.01f;
 
     private void Awake()
     {
@@ -196,17 +203,24 @@ public class MovementControls : MonoBehaviour
         // Read movement inputs
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
 
-        // Calculate Velocity
+        // Smooth Input
+        smoothedInputX = Mathf.Lerp(smoothedInputX, moveInput.x, Time.deltaTime * inputSmoothSpeed);
+        smoothedInputY = Mathf.Lerp(smoothedInputY, moveInput.y, Time.deltaTime * inputSmoothSpeed);
+
+        // Vérifie if not moving
+        if (Mathf.Abs(smoothedInputX) < inputDeadZone) smoothedInputX = 0f;
+        if (Mathf.Abs(smoothedInputY) < inputDeadZone) smoothedInputY = 0f;
+
+        animator.SetFloat("InputX", smoothedInputX);
+        animator.SetFloat("InputY", smoothedInputY);
+
+        // Calculate Movement Direction
+        Vector3 moveDirection = CalculateMovementDirection(new Vector2(smoothedInputX, smoothedInputY));
+
+        // Calculate velocity
         Vector3 vel = rigidBody.velocity;
 
-        // Calculte Movement Direction
-        Vector3 moveDirection = CalculateMovementDirection(moveInput);
-
         ApplyMovement(vel, currentSpeed, moveDirection);
-
-        // Update animator parameters for walking animations
-        animator.SetFloat("InputX", moveInput.x);
-        animator.SetFloat("InputY", moveInput.y);
 
         // Rotate only if the character is not facing the same direction as the camera
         bool playerIsMoving = moveInput.sqrMagnitude > 0.1f;
