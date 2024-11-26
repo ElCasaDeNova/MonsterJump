@@ -34,6 +34,8 @@ public class MovementControls : MonoBehaviour
     [SerializeField]
     private float cameraRotationSpeed = 0.25f; // Speed of camera rotation
     private float currentAngleY = 0f; // Current rotation angle of the camera around the Y-axis
+    [SerializeField]
+    private float smoothRotationSpeed = 0.1f;
 
     [SerializeField]
     private float coyoteTime = 0.2f; // Time window after leaving the ground during which a jump can still be triggered
@@ -322,23 +324,29 @@ public class MovementControls : MonoBehaviour
 
     private void HandleCameraRotation()
     {
-        // Get the delta value from the lookAction (mouse or controller movement)
+        // Récupérer la valeur de delta pour la rotation de la caméra
         Vector2 lookDelta = lookAction.ReadValue<Vector2>();
 
-        // Apply horizontal movement (X axis) for camera rotation
+        // Appliquer le mouvement horizontal (axe X) pour la rotation de la caméra
         float mouseX = lookDelta.x * cameraRotationSpeed;
 
-        // Update the camera's rotation angle
+        // Mettre à jour l'angle de rotation actuel
         currentAngleY += mouseX;
-        Quaternion rotation = Quaternion.Euler(0, currentAngleY, 0);
 
-        // Calculate the camera's offset based on the rotation
-        Vector3 offset = rotation * cameraOffset;
+        // Calculer la rotation cible de la caméra
+        Quaternion targetRotation = Quaternion.Euler(0, currentAngleY, 0);
 
-        // Update the camera's position
+        // Lissage de la rotation de la caméra (ajout de lissage sans retirer de ligne)
+        mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, targetRotation, smoothRotationSpeed);
+
+        // Calculer la position de la caméra avec la rotation
+        Vector3 offset = targetRotation * cameraOffset;
+
+        // Appliquer la position lissée de la caméra
         mainCamera.transform.position = transform.position + offset;
 
-        // Make the camera look at the player (with a slight upward offset)
+        // Faire en sorte que la caméra regarde le joueur (avec un léger décalage vers le haut)
         mainCamera.transform.LookAt(transform.position + Vector3.up);
     }
+
 }
