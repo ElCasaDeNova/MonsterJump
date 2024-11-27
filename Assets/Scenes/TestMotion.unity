@@ -1374,16 +1374,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1960912331664817128, guid: ad8d7f681f043a2468e8c62349c1347d,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1960912331664817128, guid: ad8d7f681f043a2468e8c62349c1347d,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1960912331664817128, guid: ad8d7f681f043a2468e8c62349c1347d,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
       objectReference: {fileID: 0}
@@ -1431,21 +1421,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7234690734875461185, guid: ad8d7f681f043a2468e8c62349c1347d,
-        type: 3}
-      propertyPath: m_Mass
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7234690734875461185, guid: ad8d7f681f043a2468e8c62349c1347d,
-        type: 3}
-      propertyPath: m_ImplicitCom
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559931378400715854, guid: ad8d7f681f043a2468e8c62349c1347d,
-        type: 3}
-      propertyPath: returnDelay
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1620,26 +1595,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 14.524048
       objectReference: {fileID: 0}
-    - target: {fileID: 2474656650275536067, guid: 9fec5536c0854c041a8ed2e14ab381df,
-        type: 3}
-      propertyPath: voiceSound
-      value: 
-      objectReference: {fileID: 8300000, guid: b46eeba8365ec154eb09e45bb2c401ef, type: 3}
-    - target: {fileID: 2474656650275536067, guid: 9fec5536c0854c041a8ed2e14ab381df,
-        type: 3}
-      propertyPath: landingSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 7d65afb5fe7bb7e41a03b001f5acfbde, type: 3}
-    - target: {fileID: 2474656650275536067, guid: 9fec5536c0854c041a8ed2e14ab381df,
-        type: 3}
-      propertyPath: originalVoicePitch
-      value: 1.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 2474656650275536067, guid: 9fec5536c0854c041a8ed2e14ab381df,
-        type: 3}
-      propertyPath: landingVolumeReduction
-      value: 0.75
-      objectReference: {fileID: 0}
     - target: {fileID: 2549118687923211239, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1669,11 +1624,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 157.64587
-      objectReference: {fileID: 0}
-    - target: {fileID: 2765787408414068392, guid: 9fec5536c0854c041a8ed2e14ab381df,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2921334941636258023, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
@@ -1800,11 +1750,6 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1222491619}
-    - target: {fileID: 6349913739205080832, guid: 9fec5536c0854c041a8ed2e14ab381df,
-        type: 3}
-      propertyPath: smoothRotationSpeed
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 6449025066167717601, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

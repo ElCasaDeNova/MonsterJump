@@ -693,7 +693,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!95 &4396374652555241458
 Animator:
   serializedVersion: 5
@@ -947,10 +947,11 @@ MonoBehaviour:
   jumpForce: 6
   playerRotationSpeed: 0.1
   groundCheck: {fileID: 934749675655159097}
+  inputSmoothSpeed: 5
   mainCamera: {fileID: 0}
   cameraOffset: {x: 0, y: 4, z: -8}
   cameraRotationSpeed: 0.25
-  smoothRotationSpeed: 0.1
+  smoothRotationSpeed: 0.2
   coyoteTime: 0.1
   animator: {fileID: 4396374652555241458}
   fallSpeedIncrease: 3
@@ -970,10 +971,15 @@ MonoBehaviour:
   stepSource: {fileID: 1374778623249460728}
   voiceSource: {fileID: 7622805233931906565}
   stepSound: {fileID: 8300000, guid: 7c518e8469a403b4c981664ecb28a79a, type: 3}
-  voiceSound: {fileID: 0}
+  voiceSound: {fileID: 8300000, guid: b46eeba8365ec154eb09e45bb2c401ef, type: 3}
+  landingSound: {fileID: 8300000, guid: 7d65afb5fe7bb7e41a03b001f5acfbde, type: 3}
+  originalStepPitch: 1
   minimumInterval: 0.2
-  minimumsprintInterval: 0.15
+  minimumSprintInterval: 0.15
+  originalVoicePitch: 1.35
   animator: {fileID: 4396374652555241458}
+  minimumLandingInterval: 0.15
+  landingVolumeReduction: 0.75
 --- !u!114 &1955193831175975466
 MonoBehaviour:
   m_ObjectHideFlags: 0
