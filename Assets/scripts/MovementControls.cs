@@ -406,4 +406,12 @@ public class MovementControls : MonoBehaviour
         mainCamera.transform.LookAt(transform.position + Vector3.up);
     }
 
+    public void ResetCameraPosition(float newAngleY)
+    {
+        currentAngleY = newAngleY;
+        mainCamera.transform.position = transform.position + cameraOffset;
+        Quaternion targetRotation = Quaternion.Euler(0, currentAngleY, 0);
+        mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, targetRotation, smoothRotationSpeed);
+    }
+
 }
