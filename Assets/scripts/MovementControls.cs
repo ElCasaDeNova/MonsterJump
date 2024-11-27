@@ -248,7 +248,7 @@ public class MovementControls : MonoBehaviour
                 float distanceToPlatform = hit.distance; // Distance from the platform
 
                 // Check if we are close enough to the platform to be considered grounded
-                if (distanceToPlatform < 0.75f && Mathf.Abs(platformNormal.y) > 0.1f)
+                if (distanceToPlatform < 1.25f && Mathf.Abs(platformNormal.y) > 0.15f)
                 {
                     // Check if the platform is moving vertically (i.e., if the character is moving up or down with it)
                     Vector3 platformVelocity = hit.rigidbody != null ? hit.rigidbody.velocity : Vector3.zero;
