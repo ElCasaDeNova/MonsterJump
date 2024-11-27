@@ -12,7 +12,6 @@ public class Checkpoint : MonoBehaviour
             if (respawnZone != null)
             {
                 respawnZone.UpdateCheckpoint(this.gameObject);
-                Debug.Log("Player reached checkpoint: " + this.name);
             }
         }
     }
