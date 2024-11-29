@@ -7,12 +7,15 @@ public class Checkpoint : MonoBehaviour
         // Check if the entering object is the player
         if (other.CompareTag("Player"))
         {
-            // Call the UpdateCheckpoint method on the RespawnZone
-            RespawnZone respawnZone = FindObjectOfType<RespawnZone>();
-            if (respawnZone != null)
+            // Find all objects with the RespawnZone script
+            RespawnZone[] respawnZones = FindObjectsOfType<RespawnZone>();
+
+            // Call UpdateCheckpoint on each one
+            foreach (RespawnZone respawnZone in respawnZones)
             {
                 respawnZone.UpdateCheckpoint(this.gameObject);
             }
         }
     }
+
 }
