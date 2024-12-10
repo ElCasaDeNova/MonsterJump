@@ -211,7 +211,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""06bde6db-12fa-46f4-9029-316f3d40d0a7"",
-                    ""path"": ""<Joystick>/stick"",
+                    ""path"": ""<HID::Nacon GC100>/stick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

@@ -6,11 +6,6 @@ public class RespawnZone : MonoBehaviour
     [SerializeField]
     private GameObject lastCheckpoint;
 
-    private void Start()
-    {
-        // Rien à changer ici
-    }
-
     // Called when another Collider enters the respawn zone
     private void OnTriggerEnter(Collider other)
     {
