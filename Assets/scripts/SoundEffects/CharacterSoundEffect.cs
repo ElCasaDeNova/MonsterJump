@@ -13,6 +13,8 @@ public class CharacterSoundEffect : MonoBehaviour
     private AudioClip voiceSound;
     [SerializeField]
     private AudioClip landingSound;
+    [SerializeField]
+    private float stepVolume=1f;
 
     private float lastStepTime = 0f;
     [SerializeField]
@@ -77,7 +79,7 @@ public class CharacterSoundEffect : MonoBehaviour
         float randomPitch = Random.Range(0.95f, 1.05f);
         stepSource.pitch = originalStepPitch * randomPitch;
 
-        stepSource.volume = 1f;
+        stepSource.volume = stepVolume;
 
         stepSource.clip = stepSound;
         stepSource.Play();
