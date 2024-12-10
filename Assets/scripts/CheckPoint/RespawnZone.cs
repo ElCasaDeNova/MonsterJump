@@ -36,7 +36,6 @@ public class RespawnZone : MonoBehaviour
             MovementControls movementControls = player.GetComponent<MovementControls>();
             if (movementControls != null)
             {
-                Debug.Log(player.transform.rotation.eulerAngles.y);
                 movementControls.ResetCameraPosition(player.transform.rotation.eulerAngles.y); // Update Camera Rotation
             }
 
