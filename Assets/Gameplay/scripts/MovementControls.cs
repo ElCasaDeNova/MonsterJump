@@ -145,7 +145,7 @@ public class MovementControls : MonoBehaviour
         animator.SetBool("isJumping", true);
     }
 
-    private void DoubleJump()
+    public void DoubleJump()
     {
         characterSoundEffect.PlayJumpVoice();
 

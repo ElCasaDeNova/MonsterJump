@@ -37,7 +37,7 @@ public class CharacterSoundEffect : MonoBehaviour
     [SerializeField]
     private float landingVolumeReduction = 0.9f;
 
-    void PlayFootsteps()
+    public void PlayFootsteps()
     {
         // verify character is on Floor
         if (animator.GetBool("isGrounded"))
@@ -87,7 +87,7 @@ public class CharacterSoundEffect : MonoBehaviour
         lastStepTime = Time.time;
     }
 
-    void PlayLandingSound()
+    public void PlayLandingSound()
     {
         stepSource.pitch = originalStepPitch;
 
