@@ -14,6 +14,8 @@ public class CharacterSoundEffect : MonoBehaviour
     [SerializeField]
     private AudioClip landingSound;
     [SerializeField]
+    private AudioClip hitSound;
+    [SerializeField]
     private float stepVolume=1f;
 
     private float lastStepTime = 0f;
@@ -119,6 +121,22 @@ public class CharacterSoundEffect : MonoBehaviour
         {
             voiceSource.pitch = originalVoicePitch * Random.Range(0.95f, 1.05f);
             voiceSource.clip = voiceSound;
+            voiceSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("AudioSource or AudioClip are not assigned");
+        }
+    }
+
+    public void PlayHitSound()
+    {
+        voiceSource.pitch = originalVoicePitch;
+
+        if (voiceSource != null && hitSound != null)
+        {
+            voiceSource.pitch = originalVoicePitch * Random.Range(0.95f, 1.05f);
+            voiceSource.clip = hitSound;
             voiceSource.Play();
         }
         else
