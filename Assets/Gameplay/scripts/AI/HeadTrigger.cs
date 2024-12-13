@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,6 +12,7 @@ public class HeadTrigger : MonoBehaviour
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     private BlinkController blinkController;
+    private BoxCollider boxCollider;
 
     private void Start()
     {
@@ -21,39 +21,37 @@ public class HeadTrigger : MonoBehaviour
         animator = agent.GetComponent<Animator>();
         navMeshAgent = agent.GetComponent<NavMeshAgent>();
         blinkController = agent.GetComponent<BlinkController>();
+        boxCollider = agent.GetComponent<BoxCollider>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // Check if the object entering has the tag "Player"
         if (other.CompareTag("Player"))
         {
             // DeActivate Box Collider
-            BoxCollider boxCollider = GetComponent<BoxCollider>();
             if (boxCollider != null)
             {
-                boxCollider.enabled = false; // Désactiver le BoxCollider
+                boxCollider.enabled = false;
             }
 
-            // Check if the object entering has the tag "Player"
-            if (other.CompareTag("Player"))
-            {
-                // Send the message "jump"
-                Debug.Log("Enemy Touched on Head");
+            // Send the message "jump"
+            Debug.Log("Enemy Touched on Head");
 
-                movementControls.DoubleJump();
+            movementControls.DoubleJump();
 
-                //activate animation for death
-                animator.SetBool("isDead", true);
+            //activate animation for death
+            animator.SetBool("isDead", true);
 
-                // Enemy stop chasing
-                navMeshAgent.speed = 0;
+            // Enemy stop chasing
+            navMeshAgent.speed = 0;
+            navMeshAgent.enabled = false;
 
-                // enemy blinks before disappearing
-                blinkController.Blink();
-            }
+            // enemy blinks before disappearing
+            blinkController.Blink();
         }
     }
 
-    
+
 
 }
