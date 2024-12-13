@@ -2608,7 +2608,7 @@ PrefabInstance:
     - target: {fileID: 1927169826055517964, guid: 7b6bb4ca7d1a2164da366b26b873d67a,
         type: 3}
       propertyPath: m_BuildHeightMesh
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7047630575357912529, guid: 7b6bb4ca7d1a2164da366b26b873d67a,
         type: 3}
@@ -3566,7 +3566,7 @@ PrefabInstance:
     - target: {fileID: 7968210344265267871, guid: d4a4d131d3bf35a45a69bdc4e476245d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.17
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 7968210344265267871, guid: d4a4d131d3bf35a45a69bdc4e476245d,
         type: 3}
