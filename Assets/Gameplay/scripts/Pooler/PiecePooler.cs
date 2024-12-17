@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class PiecePooler : MonoBehaviour
 {
-    [Header("Coin Parameters")]
+    [Header("Piece Parameters")]
     [SerializeField]
-    private GameObject bluePiecePrefab; // Prefab for the blue coin
+    private GameObject bluePiecePrefab; // Prefab for the blue Piece
     [SerializeField]
-    private GameObject redPiecePrefab;  // Prefab for the red coin
+    private GameObject redPiecePrefab;  // Prefab for the red Piece
     [SerializeField]
-    private int numberOfBluePieces = 4; // Total number of blue coins
+    private int numberOfBluePieces = 4; // Total number of blue Pieces
     [SerializeField]
-    private int numberOfRedPieces = 2;  // Total number of red coins
+    private int numberOfRedPieces = 2;  // Total number of red Pieces
 
     [SerializeField]
     private GameObject Spawners;
 
     private List<Transform> spawnPoints = new List<Transform>(); // List of spawn point positions
-    private List<GameObject> coinPool = new List<GameObject>(); // Pool containing the coins to instantiate
+    private List<GameObject> piecePool = new List<GameObject>(); // Pool containing the Pieces to instantiate
 
 
     private void Start()
@@ -32,21 +32,21 @@ public class PiecePooler : MonoBehaviour
             Debug.LogError("Spawners is not assigned!");
         }
 
-        // Checkif the coins match the spawners
+        // Checkif the Pieces match the spawners
         if (numberOfBluePieces + numberOfRedPieces != spawnPoints.Count)
         {
-            Debug.LogError("Error: The total number of coins must equal the number of spawners!");
+            Debug.LogError("Error: The total number of Pieces must equal the number of spawners!");
             return;
         }
 
-        // Step 1: Create the coin pool
-        CreateCoinPool();
+        // Step 1: Create the Piece pool
+        CreatePiecePool();
 
         // Step 2: Shuffle the spawners
         ShuffleSpawnPoints();
 
-        // Step 3: Distribute the coins on the spawners
-        SpawnCoins();
+        // Step 3: Distribute the Pieces on the spawners
+        SpawnPieces();
     }
 
     private void GetAllChildren(GameObject parent)
@@ -60,24 +60,24 @@ public class PiecePooler : MonoBehaviour
     }
 
     // Step 1: Create a pool containing BluePieces and RedPieces
-    private void CreateCoinPool()
+    private void CreatePiecePool()
     {
-        coinPool.Clear();
+        piecePool.Clear();
 
-        // Add blue coins to the pool
+        // Add blue Pieces to the pool
         for (int i = 0; i < numberOfBluePieces; i++)
         {
-            coinPool.Add(bluePiecePrefab);
+            piecePool.Add(bluePiecePrefab);
         }
 
-        // Add red coins to the pool
+        // Add red Pieces to the pool
         for (int i = 0; i < numberOfRedPieces; i++)
         {
-            coinPool.Add(redPiecePrefab);
+            piecePool.Add(redPiecePrefab);
         }
 
-        // Shuffle the pool to randomize the types of coins
-        ShuffleList(coinPool);
+        // Shuffle the pool to randomize the types of Pieces
+        ShuffleList(piecePool);
     }
 
     // Step 2: Shuffle the spawners to randomize their order
@@ -86,13 +86,13 @@ public class PiecePooler : MonoBehaviour
         ShuffleList(spawnPoints);
     }
 
-    // Step 3: Instantiate the coins at the spawner positions
-    private void SpawnCoins()
+    // Step 3: Instantiate the Pieces at the spawner positions
+    private void SpawnPieces()
     {
         for (int i = 0; i < spawnPoints.Count; i++)
         {
-            // Instantiate each coin at the spawner's position
-            Instantiate(coinPool[i], spawnPoints[i].position, Quaternion.identity);
+            // Instantiate each Piece at the spawner's position
+            Instantiate(piecePool[i], spawnPoints[i].position, Quaternion.identity);
         }
     }
 
@@ -108,9 +108,9 @@ public class PiecePooler : MonoBehaviour
         }
     }
 
-    public void ReturnCoinToPool(GameObject coin)
+    public void ReturnPieceToPool(GameObject piece)
     {
-        // Deactivate the coin to return it to the pool
-        coin.SetActive(false);
+        // Deactivate the Piece to return it to the pool
+        piece.SetActive(false);
     }
 }
