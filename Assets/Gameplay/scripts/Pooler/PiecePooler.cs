@@ -91,8 +91,19 @@ public class PiecePooler : MonoBehaviour
     {
         for (int i = 0; i < spawnPoints.Count; i++)
         {
-            // Instantiate each Piece at the spawner's position
-            Instantiate(piecePool[i], spawnPoints[i].position, Quaternion.identity);
+            // Instantiate each Piece at the spawner's position and set the spawner as the parent
+            GameObject piece = Instantiate(piecePool[i], spawnPoints[i].position, Quaternion.identity, spawnPoints[i]);
+
+            // Get the PieceManager component of the instantiated piece and set the PiecePooler
+            PieceManager pieceManager = piece.GetComponent<PieceManager>();
+            if (pieceManager != null)
+            {
+                pieceManager.SetPiecePooler(this);  // Assign the PiecePooler to the piece
+            }
+            else
+            {
+                Debug.LogError("PieceManager component missing on " + piece.name);
+            }
         }
     }
 
