@@ -31,7 +31,6 @@ public class BlinkController : MonoBehaviour
     public void Blink()
     {
         float blinkInterval = blinkDuration / blinkCount;
-        Debug.Log("blinkInterval is " + blinkInterval);
 
         // Wait for delayTime before starting the blinking
         InvokeRepeating("Blinking", delayTime, blinkInterval);
@@ -46,8 +45,6 @@ public class BlinkController : MonoBehaviour
         {
             child.gameObject.SetActive(!child.gameObject.activeInHierarchy);
         }
-
-        Debug.Log("Blinking!");
     }
 
     private void StopBlinking()
@@ -56,7 +53,6 @@ public class BlinkController : MonoBehaviour
         CancelInvoke("Blinking");
 
         // Return the agent to the pool
-        Debug.Log("waiting for " + blinkDuration + " seconds");
         pooler.ReturnObject(this.gameObject);
     }
 }

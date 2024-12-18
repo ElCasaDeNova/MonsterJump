@@ -12,7 +12,8 @@ public class HeadTrigger : MonoBehaviour
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     private BlinkController blinkController;
-    private BoxCollider boxCollider;
+    private BoxCollider bodyBoxCollider;
+    private BoxCollider headBoxCollider;
 
     private void Start()
     {
@@ -21,7 +22,8 @@ public class HeadTrigger : MonoBehaviour
         animator = agent.GetComponent<Animator>();
         navMeshAgent = agent.GetComponent<NavMeshAgent>();
         blinkController = agent.GetComponent<BlinkController>();
-        boxCollider = agent.GetComponent<BoxCollider>();
+        bodyBoxCollider = agent.GetComponent<BoxCollider>();
+        headBoxCollider = GetComponent<BoxCollider>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,14 +31,17 @@ public class HeadTrigger : MonoBehaviour
         // Check if the object entering has the tag "Player"
         if (other.CompareTag("Player"))
         {
-            // DeActivate Box Collider
-            if (boxCollider != null)
+            // DeActivate Box Collider for the body
+            if (bodyBoxCollider != null)
             {
-                boxCollider.enabled = false;
+                bodyBoxCollider.enabled = false;
             }
 
-            // Send the message "jump"
-            Debug.Log("Enemy Touched on Head");
+            // DeActivate Box Collider for the head
+            if (headBoxCollider != null)
+            {
+                headBoxCollider.enabled = false;
+            }
 
             movementControls.DoubleJump();
 

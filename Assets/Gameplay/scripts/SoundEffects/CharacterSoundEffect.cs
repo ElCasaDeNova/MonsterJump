@@ -129,7 +129,7 @@ public class CharacterSoundEffect : MonoBehaviour
         }
     }
 
-    public void PlayHitSound()
+    public void PlayHitSound(float originalVoicePitch=1f)
     {
         voiceSource.pitch = originalVoicePitch;
 
