@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FBIAgentPooler : MonoBehaviour
 {
-    public GameObject fbiAgentPrefab; 
+    public GameObject fbiAgentPrefab;
     public int poolSize = 50;
 
     private Queue<GameObject> pool;

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7761519813187315932}
-  - component: {fileID: 8096077055253226284}
+  - component: {fileID: 5718972882446376561}
   m_Layer: 0
   m_Name: FBIAgentPooler
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8096077055253226284
+--- !u!114 &5718972882446376561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,9 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7118083650241874514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 370d7bbe764fb8144b0af5d98ad032c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c670e2825113cf4191307fcd1c0bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fbiAgentPrefab: {fileID: 7340609813278515237, guid: d4a4d131d3bf35a45a69bdc4e476245d,
-    type: 3}
-  poolSize: 50
+  prefab: {fileID: 0}
+  poolSize: 5

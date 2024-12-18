@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class BlinkController : MonoBehaviour
     private float delayTime = 5f; // time before blink
 
     [SerializeField]
-    private FBIAgentPooler agentPooler;
+    private ObjectPooler pooler;
 
     private List<GameObject> children;
 
@@ -37,7 +36,7 @@ public class BlinkController : MonoBehaviour
         // Wait for delayTime before starting the blinking
         InvokeRepeating("Blinking", delayTime, blinkInterval);
 
-        Invoke("StopBlinking", delayTime+blinkDuration);
+        Invoke("StopBlinking", delayTime + blinkDuration);
 
     }
 
@@ -58,6 +57,6 @@ public class BlinkController : MonoBehaviour
 
         // Return the agent to the pool
         Debug.Log("waiting for " + blinkDuration + " seconds");
-        agentPooler.ReturnAgent(this.gameObject);
+        pooler.ReturnObject(this.gameObject);
     }
 }
