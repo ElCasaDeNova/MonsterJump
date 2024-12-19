@@ -10,7 +10,7 @@ public class PlayerHitHandler : MonoBehaviour
     [SerializeField]
     private GameObject playerBody;
     [SerializeField]
-    private float damageEffectDuration=1f;
+    private float damageEffectDuration = 1f;
     [SerializeField]
     private float UpForce = 1f;
     [SerializeField]
@@ -19,8 +19,11 @@ public class PlayerHitHandler : MonoBehaviour
     private float MovementDuration = 0.5f;
     [SerializeField]
     private float originalVoicePitch = 1.5f;
+    [SerializeField]
+    private float damageHit = 1f;
 
     private CharacterSoundEffect characterSoundEffect;
+    private PlayerHealth playerHealth;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -47,7 +50,9 @@ public class PlayerHitHandler : MonoBehaviour
         characterSoundEffect = player.GetComponent<CharacterSoundEffect>();
         characterSoundEffect.PlayHitSound(originalVoicePitch);
 
-        //TODO Player Health (component) -1
+        // Player takes damage
+        playerHealth = player.GetComponent<PlayerHealth>();
+        playerHealth.TakeDamage(damageHit);
     }
 
     private IEnumerator MoveBackwardAndUp(Collider player)

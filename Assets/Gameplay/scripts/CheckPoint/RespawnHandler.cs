@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RespawnZone : MonoBehaviour
+public class RespawnHandler : MonoBehaviour
 {
     // Variable to store the last checkpoint
     [SerializeField]
@@ -17,7 +17,7 @@ public class RespawnZone : MonoBehaviour
     }
 
     // Function to teleport the player to the last checkpoint
-    private void RespawnPlayer(GameObject player)
+    public void RespawnPlayer(GameObject player)
     {
         if (lastCheckpoint != null)
         {

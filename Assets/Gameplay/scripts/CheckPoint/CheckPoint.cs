@@ -8,10 +8,10 @@ public class Checkpoint : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Find all objects with the RespawnZone script
-            RespawnZone[] respawnZones = FindObjectsOfType<RespawnZone>();
+            RespawnHandler[] respawnZones = FindObjectsOfType<RespawnHandler>();
 
             // Call UpdateCheckpoint on each one
-            foreach (RespawnZone respawnZone in respawnZones)
+            foreach (RespawnHandler respawnZone in respawnZones)
             {
                 respawnZone.UpdateCheckpoint(this.gameObject);
             }
