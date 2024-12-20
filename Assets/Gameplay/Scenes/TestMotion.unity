@@ -2609,6 +2609,11 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1222491619}
+    - target: {fileID: 6349913739205080832, guid: 9fec5536c0854c041a8ed2e14ab381df,
+        type: 3}
+      propertyPath: cameraCollisionLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

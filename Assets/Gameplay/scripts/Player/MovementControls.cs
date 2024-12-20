@@ -76,6 +76,9 @@ public class MovementControls : MonoBehaviour
     [SerializeField]
     private LayerMask cameraCollisionLayer; // Layer mask for camera collision detection (e.g., Ground layer)
 
+    [SerializeField]
+    private Vector3 cameraVelocity = Vector3.zero;
+
 
     private void Awake()
     {
@@ -421,41 +424,40 @@ public class MovementControls : MonoBehaviour
 
     private void HandleCameraRotation()
     {
-        // Retrieve delta values for camera rotation (from the player's input)
+        // Get the mouse delta for rotation (X-axis)
         Vector2 lookDelta = lookAction.ReadValue<Vector2>();
 
-        // Apply the horizontal movement (X-axis) for camera rotation
+        // Apply mouse movement to the X-axis rotation
         float mouseX = lookDelta.x * cameraRotationSpeed;
 
-        // Update the current Y-axis rotation angle
+        // Update the Y-axis rotation angle
         currentAngleY += mouseX;
 
-        // Calculate the target rotation for the camera
+        // Calculate the target rotation
         Quaternion targetRotation = Quaternion.Euler(0, currentAngleY, 0);
 
-        // Smooth the camera's rotation without jumping (slightly adjust its speed)
-        mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, targetRotation, smoothRotationSpeed);
+        // Apply the camera rotation
+        mainCamera.transform.rotation = targetRotation;
 
-        // Calculate the camera's target position with the current rotation applied
+        // Calculate the target camera position with the offset
         Vector3 offset = targetRotation * cameraOffset;
-
-        // Calculate the desired camera position
         Vector3 desiredCameraPosition = transform.position + offset;
 
-        // Perform a raycast from the player's position to the desired camera position to check for obstacles
+        // Check for collisions with the ground and adjust the camera position
         RaycastHit hit;
         if (Physics.Raycast(transform.position, offset, out hit, offset.magnitude, cameraCollisionLayer))
         {
-            // If an obstacle is detected, adjust the camera position to the hit point
-            desiredCameraPosition = hit.point - offset.normalized * cameraCollisionRadius; // Offset to avoid clipping
+            // If a collision is detected, adjust the camera position
+            desiredCameraPosition = hit.point - offset.normalized * cameraCollisionRadius;
         }
 
-        // Apply the smoothed camera position, ensuring the camera doesn't pass through obstacles
-        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, desiredCameraPosition, smoothRotationSpeed);
+        // Move the camera to the desired position without passing through obstacles
+        mainCamera.transform.position = desiredCameraPosition;
 
-        // Make sure the camera always looks at the player (with a slight offset upwards)
+        // Make sure the camera always looks at the player
         mainCamera.transform.LookAt(transform.position + Vector3.up);
     }
+
 
     public void ResetCameraPosition(float newAngleY)
     {

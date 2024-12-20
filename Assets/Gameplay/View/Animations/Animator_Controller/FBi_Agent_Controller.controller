@@ -405,7 +405,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.7468021
+  m_TransitionDuration: 0.30501437
   m_TransitionOffset: 0
   m_ExitTime: 0
   m_HasExitTime: 0
@@ -645,7 +645,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Die
-  m_Speed: 1.5
+  m_Speed: 1.75
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -767,9 +767,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 2.4205465
+  m_TransitionDuration: 0.61493427
   m_TransitionOffset: 0
-  m_ExitTime: 0
+  m_ExitTime: 6.245942e-11
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -867,9 +867,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 2.0789428
+  m_TransitionDuration: 0.4189038
   m_TransitionOffset: 0
-  m_ExitTime: 0.0047962843
+  m_ExitTime: 0.0047962847
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
