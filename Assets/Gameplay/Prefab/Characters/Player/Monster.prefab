@@ -57,7 +57,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.448
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
@@ -67,7 +67,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.989
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
@@ -1017,3 +1017,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumHealth: 3
   respawnHandler: {fileID: 0}
+  normalMaterial: {fileID: 2100000, guid: 962696a641795e64ba7ebdc58c8b2728, type: 2}
+  damagedMaterial: {fileID: 2100000, guid: 121724711e4b1684c8de75bdaf73b231, type: 2}
+  playerBody: {fileID: 6161632696907878333}
+  damageEffectDuration: 1
+  MovementDuration: 0.5
+--- !u!1 &6161632696907878333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3066507884734369294, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 68423818348691023}
+  m_PrefabAsset: {fileID: 0}

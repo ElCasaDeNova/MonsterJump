@@ -1,94 +1,26 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerHitHandler : MonoBehaviour
 {
     [SerializeField]
-    private Material normalMaterial;
+    private float UpForce = 1f; // Y Axis force on player
     [SerializeField]
-    private Material damagedMaterial;
+    private float BackForce = 10f; // X Axis force on player
     [SerializeField]
-    private GameObject playerBody;
-    [SerializeField]
-    private float damageEffectDuration = 1f;
-    [SerializeField]
-    private float UpForce = 1f;
-    [SerializeField]
-    private float BackForce = 10f;
-    [SerializeField]
-    private float MovementDuration = 0.5f;
-    [SerializeField]
-    private float originalVoicePitch = 1.5f;
-    [SerializeField]
-    private float damageHit = 1f;
+    private float damageHit = 1f; //Damage made to player
 
-    private CharacterSoundEffect characterSoundEffect;
     private PlayerHealth playerHealth;
 
     private void OnTriggerEnter(Collider other)
     {
+        // If The Weapon hit the Player then Player takes damage
         if (other.CompareTag("Player"))
         {
-            ApplyDamageEffect(other);
-
-            StartCoroutine(RestoreNormalStateAfterDelay());
+            // Player takes damage
+            playerHealth = other.GetComponent<PlayerHealth>();
+            playerHealth.TakeDamage(damageHit, UpForce, BackForce);
         }
     }
 
-    // Turn Character to Red and move him to the back
-    private void ApplyDamageEffect(Collider player)
-    {
-        if (playerBody.TryGetComponent<Renderer>(out Renderer renderer))
-        {
-            renderer.material = damagedMaterial;
-        }
-
-        // Add Forces on Player when hit
-        StartCoroutine(MoveBackwardAndUp(player));
-
-        // Add Hit Noise
-        characterSoundEffect = player.GetComponent<CharacterSoundEffect>();
-        characterSoundEffect.PlayHitSound(originalVoicePitch);
-
-        // Player takes damage
-        playerHealth = player.GetComponent<PlayerHealth>();
-        playerHealth.TakeDamage(damageHit);
-    }
-
-    private IEnumerator MoveBackwardAndUp(Collider player)
-    {
-        // Calculate Player Direction
-        Vector3 initialPosition = player.transform.position;
-        Vector3 targetPosition = player.transform.position
-            - player.transform.forward * BackForce // Vers l'arrière
-            + player.transform.up * UpForce;      // Vers le haut
-
-        float elapsedTime = 0f;
-
-        while (elapsedTime < MovementDuration)
-        {
-            // Interpolation between  initial position and target
-            player.transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / MovementDuration);
-
-            // Increment time
-            elapsedTime += Time.deltaTime;
-
-            // Wait next frame
-            yield return null;
-        }
-
-        // Verify player is on target
-        player.transform.position = targetPosition;
-    }
-
-    // Gives to the character his original color after few seconds
-    private IEnumerator RestoreNormalStateAfterDelay()
-    {
-        yield return new WaitForSeconds(damageEffectDuration);
-
-        if (playerBody.TryGetComponent<Renderer>(out Renderer renderer))
-        {
-            renderer.material = normalMaterial;
-        }
-    }
+    
 }

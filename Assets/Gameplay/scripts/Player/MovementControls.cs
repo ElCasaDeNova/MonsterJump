@@ -66,6 +66,17 @@ public class MovementControls : MonoBehaviour
 
     private CharacterSoundEffect characterSoundEffect;
 
+    [SerializeField]
+    private float stepHeight = 0.5f; // Maximum Height for a step
+    [SerializeField]
+    private float stepCheckDistance = 0.6f; // Distance of Step detection
+
+    [SerializeField]
+    private float cameraCollisionRadius = 0.5f; // Radius for camera collision detection
+    [SerializeField]
+    private LayerMask cameraCollisionLayer; // Layer mask for camera collision detection (e.g., Ground layer)
+
+
     private void Awake()
     {
         // Get private variables
@@ -173,6 +184,8 @@ public class MovementControls : MonoBehaviour
     // Called at Fixed Frequences (50 times per second)
     private void FixedUpdate()
     {
+        HandleStepClimb();
+
         // Check if the player is on the ground
         isGrounded = CheckIfGrounded();
 
@@ -373,6 +386,33 @@ public class MovementControls : MonoBehaviour
         }
     }
 
+    private void HandleStepClimb()
+    {
+        // Cast a ray slightly above the player's position to detect obstacles in front of them
+        RaycastHit hitLower;
+        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.forward, out hitLower, stepCheckDistance, groundLayerMask))
+        {
+            // Calculate the height of the obstacle in front of the player
+            float obstacleHeight = hitLower.point.y - transform.position.y;
+
+            // Check if the obstacle is within the defined step height range
+            if (obstacleHeight > 0.1f && obstacleHeight <= stepHeight)
+            {
+                // Cast another ray higher up to check if there's enough space to step over the obstacle
+                RaycastHit hitUpper;
+                if (!Physics.Raycast(transform.position + Vector3.up * (stepHeight + 0.1f), transform.forward, stepCheckDistance, groundLayerMask))
+                {
+                    // If no obstruction is detected, adjust the player's position to climb the step
+                    Vector3 newPosition = transform.position;
+                    newPosition.y += obstacleHeight;  // Move the player upwards by the obstacle height
+                    transform.position = newPosition;  // Update the player's position
+                }
+            }
+        }
+    }
+
+
+
     private void Update()
     {
         // Handle camera rotation logic
@@ -381,28 +421,39 @@ public class MovementControls : MonoBehaviour
 
     private void HandleCameraRotation()
     {
-        // Récupérer la valeur de delta pour la rotation de la caméra
+        // Retrieve delta values for camera rotation (from the player's input)
         Vector2 lookDelta = lookAction.ReadValue<Vector2>();
 
-        // Appliquer le mouvement horizontal (axe X) pour la rotation de la caméra
+        // Apply the horizontal movement (X-axis) for camera rotation
         float mouseX = lookDelta.x * cameraRotationSpeed;
 
-        // Mettre à jour l'angle de rotation actuel
+        // Update the current Y-axis rotation angle
         currentAngleY += mouseX;
 
-        // Calculer la rotation cible de la caméra
+        // Calculate the target rotation for the camera
         Quaternion targetRotation = Quaternion.Euler(0, currentAngleY, 0);
 
-        // Lissage de la rotation de la caméra (ajout de lissage sans retirer de ligne)
+        // Smooth the camera's rotation without jumping (slightly adjust its speed)
         mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, targetRotation, smoothRotationSpeed);
 
-        // Calculer la position de la caméra avec la rotation
+        // Calculate the camera's target position with the current rotation applied
         Vector3 offset = targetRotation * cameraOffset;
 
-        // Appliquer la position lissée de la caméra
-        mainCamera.transform.position = transform.position + offset;
+        // Calculate the desired camera position
+        Vector3 desiredCameraPosition = transform.position + offset;
 
-        // Faire en sorte que la caméra regarde le joueur (avec un léger décalage vers le haut)
+        // Perform a raycast from the player's position to the desired camera position to check for obstacles
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, offset, out hit, offset.magnitude, cameraCollisionLayer))
+        {
+            // If an obstacle is detected, adjust the camera position to the hit point
+            desiredCameraPosition = hit.point - offset.normalized * cameraCollisionRadius; // Offset to avoid clipping
+        }
+
+        // Apply the smoothed camera position, ensuring the camera doesn't pass through obstacles
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, desiredCameraPosition, smoothRotationSpeed);
+
+        // Make sure the camera always looks at the player (with a slight offset upwards)
         mainCamera.transform.LookAt(transform.position + Vector3.up);
     }
 
@@ -413,5 +464,7 @@ public class MovementControls : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, currentAngleY, 0);
         mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, targetRotation, smoothRotationSpeed);
     }
+
+
 
 }
