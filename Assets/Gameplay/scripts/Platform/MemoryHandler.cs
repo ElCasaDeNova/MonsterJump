@@ -49,8 +49,8 @@ public class MemoryHandler : MonoBehaviour
     {
         if (nextRightDoor != null && nextLeftDoor != null)
         {
+            StartCoroutine(MoveDoor(nextLeftDoor, Vector3.right * moveDistance));
             StartCoroutine(MoveDoor(nextRightDoor, Vector3.left * moveDistance));
-            StartCoroutine(MoveDoor(nextLeftDoor, Vector3.left * moveDistance));
         }
     }
 

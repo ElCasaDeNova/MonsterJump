@@ -11,24 +11,24 @@ public class LightIntensityOscillator : MonoBehaviour
     [SerializeField]
     private float frequency = 1.0f;    // Frequency in oscillations per second
 
-    private Light areaLight;
+    private Light pointLight;           // Light component
     private float timeElapsed;
 
     void Start()
     {
         // Get the light component attached to this GameObject
-        areaLight = GetComponent<Light>();
+        pointLight = GetComponent<Light>();
 
-        // Check if the light type is Area
-        if (areaLight.type != LightType.Area)
+        // Check if the light type is Point
+        if (pointLight.type != LightType.Point)
         {
-            Debug.LogError("This script must be attached to an Area Light.");
+            Debug.LogError("This script must be attached to a Point Light.");
         }
     }
 
     void Update()
     {
-        if (areaLight.type == LightType.Area)
+        if (pointLight.type == LightType.Point)
         {
             // Increment elapsed time
             timeElapsed += Time.deltaTime;
@@ -37,7 +37,7 @@ public class LightIntensityOscillator : MonoBehaviour
             float oscillation = Mathf.Sin(timeElapsed * frequency * 2 * Mathf.PI) * 0.5f + 0.5f;
 
             // Map the oscillation to the min/max intensity range
-            areaLight.intensity = Mathf.Lerp(minIntensity, maxIntensity, oscillation);
+            pointLight.intensity = Mathf.Lerp(minIntensity, maxIntensity, oscillation);
         }
     }
 }
