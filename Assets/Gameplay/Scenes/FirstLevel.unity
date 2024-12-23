@@ -2626,6 +2626,21 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.43125367
       objectReference: {fileID: 0}
+    - target: {fileID: 1271470793270307878, guid: 1b29866cf9468784e95ce520fdf90433,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.264
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271470793270307878, guid: 1b29866cf9468784e95ce520fdf90433,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.132
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271470793270307878, guid: 1b29866cf9468784e95ce520fdf90433,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 1402680347333374930, guid: 1b29866cf9468784e95ce520fdf90433,
         type: 3}
       propertyPath: m_Layer
@@ -2734,7 +2749,7 @@ PrefabInstance:
     - target: {fileID: 6498391751213350191, guid: 1b29866cf9468784e95ce520fdf90433,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.082057
+      value: 11.909
       objectReference: {fileID: 0}
     - target: {fileID: 6498391751213350191, guid: 1b29866cf9468784e95ce520fdf90433,
         type: 3}
@@ -11250,6 +11265,16 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 344675111}
+    - target: {fileID: 6349913739205080832, guid: 9fec5536c0854c041a8ed2e14ab381df,
+        type: 3}
+      propertyPath: stepHeight
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349913739205080832, guid: 9fec5536c0854c041a8ed2e14ab381df,
+        type: 3}
+      propertyPath: stepCheckDistance
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6349913739205080832, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
       propertyPath: cameraCollisionLayer.m_Bits

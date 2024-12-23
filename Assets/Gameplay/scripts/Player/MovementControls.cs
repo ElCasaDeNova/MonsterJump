@@ -409,22 +409,34 @@ public class MovementControls : MonoBehaviour
     private void HandleStepClimb()
     {
         RaycastHit hitLower;
+        // Lancer un rayon légèrement au-dessus de la position du joueur pour détecter les obstacles devant lui
         if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.forward, out hitLower, stepCheckDistance, groundLayerMask))
         {
+            // Calculer la hauteur de l'obstacle devant le joueur
             float obstacleHeight = hitLower.point.y - transform.position.y;
 
+            // Vérifier si l'obstacle est dans la plage de hauteur des marches
             if (obstacleHeight > 0.1f && obstacleHeight <= stepHeight)
             {
                 RaycastHit hitUpper;
-                if (!Physics.Raycast(transform.position + Vector3.up * (stepHeight + 0.1f), transform.forward, stepCheckDistance, groundLayerMask))
+                // Lancer un second rayon pour vérifier s'il y a de l'espace libre au-dessus de l'obstacle
+                bool isSpaceAboveClear = !Physics.Raycast(transform.position + Vector3.up * (stepHeight + 0.1f), transform.forward, out hitUpper, stepCheckDistance, groundLayerMask);
+
+                if (isSpaceAboveClear)
                 {
-                    // Interpolated adjustment for smooth step climbing
-                    Vector3 stepAdjustment = new Vector3(0, obstacleHeight, 0);
-                    transform.position = Vector3.Lerp(transform.position, transform.position + stepAdjustment, Time.deltaTime * inputSmoothSpeed);
+                    // Ajuster la position du joueur pour monter l'obstacle
+                    Vector3 newPosition = transform.position;
+                    newPosition.y += obstacleHeight;  // Déplacer le joueur vers le haut de la hauteur de l'obstacle
+                    transform.position = newPosition;  // Mettre à jour la position du joueur
+                }
+                else
+                {
+                    Debug.Log("Step climb blocked by obstacle above: " + hitUpper.collider.name);
                 }
             }
         }
     }
+
 
     private void Update()
     {
