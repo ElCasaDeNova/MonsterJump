@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 684015605764378071}
   - component: {fileID: 6364285393864803693}
   - component: {fileID: 6910738138271164390}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light_Corridor_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6668761031971944679}
   - component: {fileID: 40096049590598366}
   - component: {fileID: 3862342114280353124}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,9 +210,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021196700683635745}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light_Corridor_01
-  m_TagString: Untagged
+  m_TagString: StaticPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class PlatformMovement : MonoBehaviour
 {
-    public Transform pointA;
-    public Transform pointB;
-    public float speed = 2f; // Movement speed
-    public float smoothTime = 0.3f; // Smooth time for the movement
-    public float stopDistance = 0.05f; // Distance at which the platform is considered to have arrived
+    [SerializeField]
+    private Transform pointA;
+    [SerializeField]
+    private Transform pointB;
+    [SerializeField]
+    private float speed = 2f; // Movement speed
+    [SerializeField]
+    private float smoothTime = 0.3f; // Smooth time for the movement
+    [SerializeField]
+    private float stopDistance = 0.05f; // Distance at which the platform is considered to have arrived
 
     private Transform target; // Destination point
     private Vector3 velocity = Vector3.zero; // Velocity for SmoothDamp
