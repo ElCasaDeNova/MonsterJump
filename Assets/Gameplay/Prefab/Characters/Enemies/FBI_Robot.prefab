@@ -36,17 +36,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d351f36a85e30aa49956bb5e87085bd4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.42
+      value: -8.896667
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d351f36a85e30aa49956bb5e87085bd4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.045
+      value: 32.420006
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d351f36a85e30aa49956bb5e87085bd4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.4
+      value: -358.7801
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d351f36a85e30aa49956bb5e87085bd4,
         type: 3}
@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d351f36a85e30aa49956bb5e87085bd4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d351f36a85e30aa49956bb5e87085bd4,
         type: 3}
@@ -76,7 +76,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d351f36a85e30aa49956bb5e87085bd4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d351f36a85e30aa49956bb5e87085bd4,
         type: 3}
@@ -805,7 +805,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 5
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -840,7 +840,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -902,7 +902,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1038,6 +1038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolPoints:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

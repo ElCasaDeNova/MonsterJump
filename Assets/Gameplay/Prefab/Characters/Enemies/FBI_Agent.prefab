@@ -502,37 +502,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.287
+      value: -8.428913
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.43
+      value: 32.528
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.733
+      value: -355.17612
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.050853077
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99870616
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
@@ -542,7 +542,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 174.17
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7bb85df77a6105c4dae0e3d7b018c244,
         type: 3}
@@ -1273,13 +1273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101716bb9d49cb45b8ef08e69d16f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalMaterial: {fileID: 2100000, guid: 962696a641795e64ba7ebdc58c8b2728, type: 2}
-  damagedMaterial: {fileID: 2100000, guid: 121724711e4b1684c8de75bdaf73b231, type: 2}
-  playerBody: {fileID: 0}
-  damageEffectDuration: 0.35
   UpForce: 0.5
   BackForce: 3
-  MovementDuration: 0.25
+  damageHit: 1
 --- !u!1 &7340609813278515237 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7bb85df77a6105c4dae0e3d7b018c244,
@@ -1353,9 +1349,9 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 5
-  MinDistance: 1.7279899
-  MaxDistance: 500
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1390,7 +1386,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1442,7 +1438,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2836935383656826818, guid: f2c4970bc23ed6f42955c22a73309d1a,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1452,7 +1448,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1487,7 +1483,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1660,7 +1656,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 3.09
-  m_BaseOffset: 0
+  m_BaseOffset: 0.24
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1049690912077192215
