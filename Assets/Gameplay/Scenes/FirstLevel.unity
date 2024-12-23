@@ -36778,7 +36778,7 @@ PrefabInstance:
     - target: {fileID: 2164482686598905509, guid: bd3b6cd317f5abb4a93416709368a933,
         type: 3}
       propertyPath: m_TagString
-      value: StaticPlatform
+      value: MovingPlatform
       objectReference: {fileID: 0}
     - target: {fileID: 3815213084408926112, guid: bd3b6cd317f5abb4a93416709368a933,
         type: 3}

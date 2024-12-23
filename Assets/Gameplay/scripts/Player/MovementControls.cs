@@ -251,6 +251,7 @@ public class MovementControls : MonoBehaviour
         }
     }
 
+    private Transform currentPlatform = null;
     private bool CheckIfGrounded()
     {
         RaycastHit hit;
@@ -278,6 +279,22 @@ public class MovementControls : MonoBehaviour
                         return true;
                     }
                 }
+            }
+            else if (hit.collider.CompareTag("MovingPlatform"))
+            {
+                Vector3 platformVelocity = hit.rigidbody != null ? hit.rigidbody.velocity : Vector3.zero;
+
+                // Verify if player and platform have same velocity
+                if (Mathf.Abs(rigidBody.velocity.y - platformVelocity.y) < 0.1f)
+                {
+                    currentPlatform = hit.transform; // attach player to platform
+                    return true;
+                }
+            }
+            else
+            {
+                currentPlatform = null; // Detached
+                return true;
             }
 
             // If it's another type of stable ground, we return true as normal
@@ -391,30 +408,23 @@ public class MovementControls : MonoBehaviour
 
     private void HandleStepClimb()
     {
-        // Cast a ray slightly above the player's position to detect obstacles in front of them
         RaycastHit hitLower;
         if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.forward, out hitLower, stepCheckDistance, groundLayerMask))
         {
-            // Calculate the height of the obstacle in front of the player
             float obstacleHeight = hitLower.point.y - transform.position.y;
 
-            // Check if the obstacle is within the defined step height range
             if (obstacleHeight > 0.1f && obstacleHeight <= stepHeight)
             {
-                // Cast another ray higher up to check if there's enough space to step over the obstacle
                 RaycastHit hitUpper;
                 if (!Physics.Raycast(transform.position + Vector3.up * (stepHeight + 0.1f), transform.forward, stepCheckDistance, groundLayerMask))
                 {
-                    // If no obstruction is detected, adjust the player's position to climb the step
-                    Vector3 newPosition = transform.position;
-                    newPosition.y += obstacleHeight;  // Move the player upwards by the obstacle height
-                    transform.position = newPosition;  // Update the player's position
+                    // Interpolated adjustment for smooth step climbing
+                    Vector3 stepAdjustment = new Vector3(0, obstacleHeight, 0);
+                    transform.position = Vector3.Lerp(transform.position, transform.position + stepAdjustment, Time.deltaTime * inputSmoothSpeed);
                 }
             }
         }
     }
-
-
 
     private void Update()
     {
