@@ -31,10 +31,17 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage,float UpForce=1f, float BackForce=10f)
     {
-        ApplyDamageEffect(damage, UpForce, BackForce);
-        
-        if (health <= 0) {
+        health -= damage;
+        Debug.Log("take " + damage + " damage");
+
+        if (health <= 0)
+        {
+            Debug.Log("Player dies");
             Die();
+        }
+        else {
+        ApplyDamageEffect(UpForce, BackForce);
+
         }
     }
 
@@ -43,9 +50,8 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // Turn Character to Red and move him to the back
-    private void ApplyDamageEffect(float damage, float UpForce, float BackForce)
+    private void ApplyDamageEffect(float UpForce, float BackForce)
     {
-        health -= damage;
 
         if (playerBody.TryGetComponent<Renderer>(out Renderer renderer))
         {
