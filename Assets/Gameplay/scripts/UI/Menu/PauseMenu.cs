@@ -10,9 +10,9 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     private GameObject gameUI;
     [SerializeField]
-    private GameObject gameOverUI;
-    [SerializeField]
     private GameObject settingsPanel;
+    [SerializeField] 
+    private Camera mainCamera;
 
     [SerializeField]
     private AudioClip audioClip;
@@ -25,12 +25,15 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);  // Hide the pause menu initially
         audioSource = GetComponent<AudioSource>();
+
+        //Hide Cursor at the beginning of the game
+        Cursor.visible = false;
     }
 
     void Update()
     {
         // Check if the Escape key is pressed and game not lost
-        if (Input.GetKeyDown(KeyCode.Escape) && !gameOverUI.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {
@@ -45,6 +48,9 @@ public class PauseMenu : MonoBehaviour
 
     void PauseGame()
     {
+        // Make the cursor visible
+        Cursor.visible = true;
+
         Time.timeScale = 0f;  // Stop the game time (pause the game)
         pauseMenu.SetActive(true);  // Show the pause menu
         isPaused = true;
@@ -55,6 +61,9 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
+        // Hide Cursor
+        Cursor.visible = false;
+
         Time.timeScale = 1f;  // Resume the game time
         pauseMenu.SetActive(false);  // Hide the pause menu
         isPaused = false;
