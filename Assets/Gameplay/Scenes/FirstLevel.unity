@@ -27258,7 +27258,7 @@ PrefabInstance:
     - target: {fileID: 6349913739205080832, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
       propertyPath: stepHeight
-      value: 0.5
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 6349913739205080832, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}

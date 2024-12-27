@@ -12,6 +12,11 @@ public class EnemyAnimationController : MonoBehaviour
     private float smoothedInputX; // Smoothed horizontal input
     private float smoothedInputY; // Smoothed vertical input
 
+    private Vector3 velocity;
+    private Vector3 localVelocity;
+    private float inputX;
+    private float inputY;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -34,17 +39,17 @@ public class EnemyAnimationController : MonoBehaviour
     private void UpdateAnimationInputs()
     {
         // Calculate the agent's movement direction based on its velocity
-        Vector3 velocity = (transform.position - previousPosition) / Time.deltaTime; // Approximation of velocity
+        velocity = (transform.position - previousPosition) / Time.unscaledDeltaTime; // Use unscaledDeltaTime to avoid issues when timeScale is paused
         previousPosition = transform.position;
 
         // Normalize velocity to get directional input
-        Vector3 localVelocity = transform.InverseTransformDirection(velocity); // Transform to local space
-        float inputX = localVelocity.x;
-        float inputY = localVelocity.z;
+        localVelocity = transform.InverseTransformDirection(velocity); // Transform to local space
+        inputX = localVelocity.x;
+        inputY = localVelocity.z;
 
         // Smooth inputs for better animation transitions
-        smoothedInputX = Mathf.Lerp(smoothedInputX, inputX, Time.deltaTime * inputSmoothSpeed);
-        smoothedInputY = Mathf.Lerp(smoothedInputY, inputY, Time.deltaTime * inputSmoothSpeed);
+        smoothedInputX = Mathf.Lerp(smoothedInputX, inputX, Time.unscaledDeltaTime * inputSmoothSpeed);
+        smoothedInputY = Mathf.Lerp(smoothedInputY, inputY, Time.unscaledDeltaTime * inputSmoothSpeed);
 
         // Apply a dead zone to avoid jittering at low speeds
         if (Mathf.Abs(smoothedInputX) < inputDeadZone) smoothedInputX = 0f;
@@ -54,4 +59,5 @@ public class EnemyAnimationController : MonoBehaviour
         animator.SetFloat("InputX", smoothedInputX);
         animator.SetFloat("InputY", smoothedInputY);
     }
+
 }
