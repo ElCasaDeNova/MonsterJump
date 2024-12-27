@@ -24,7 +24,11 @@ public class EnemyAnimationController : MonoBehaviour
 
     void Update()
     {
-        UpdateAnimationInputs();
+        // Only update animation inputs if the game is not paused
+        if (Time.timeScale > 0f)
+        {
+            UpdateAnimationInputs();
+        }
     }
 
     private void UpdateAnimationInputs()
