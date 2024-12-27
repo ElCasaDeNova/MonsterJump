@@ -255,7 +255,7 @@ public class MovementControls : MonoBehaviour
     private bool CheckIfGrounded()
     {
         RaycastHit hit;
-        if (Physics.Raycast(groundCheck.position, Vector3.down, out hit, 0.5f, groundLayerMask))
+        if (Physics.Raycast(groundCheck.position, Vector3.down, out hit,stepHeight+0.5f, groundLayerMask))
         {
             // Check if the ground is an unstable platform
             if (hit.collider.CompareTag("UnstablePlatform"))
@@ -409,25 +409,28 @@ public class MovementControls : MonoBehaviour
     private void HandleStepClimb()
     {
         RaycastHit hitLower;
-        // Lancer un rayon légèrement au-dessus de la position du joueur pour détecter les obstacles devant lui
-        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.forward, out hitLower, stepCheckDistance, groundLayerMask))
-        {
-            // Calculer la hauteur de l'obstacle devant le joueur
-            float obstacleHeight = hitLower.point.y - transform.position.y;
+        // Use a BoxCast to check for obstacles in a larger volume in front of the player
+        Vector3 boxSize = new Vector3(0.5f, 0.5f, stepCheckDistance); // Adjust the box size to your needs
 
-            // Vérifier si l'obstacle est dans la plage de hauteur des marches
+        // BoxCast will check a larger area in front of the character
+        if (Physics.BoxCast(groundCheck.position + Vector3.up * 0.1f, boxSize / 2, transform.forward, out hitLower, Quaternion.identity, 0f, groundLayerMask))
+        {
+            // Calculate the height of the obstacle in front of the player
+            float obstacleHeight = hitLower.point.y - groundCheck.position.y;
+
+            // Check if the obstacle is within the step height range
             if (obstacleHeight > 0.1f && obstacleHeight <= stepHeight)
             {
                 RaycastHit hitUpper;
-                // Lancer un second rayon pour vérifier s'il y a de l'espace libre au-dessus de l'obstacle
-                bool isSpaceAboveClear = !Physics.Raycast(transform.position + Vector3.up * (stepHeight + 0.1f), transform.forward, out hitUpper, stepCheckDistance, groundLayerMask);
+                // Use BoxCast to check if there is enough space above the obstacle (wider check)
+                bool isSpaceAboveClear = !Physics.BoxCast(groundCheck.position + Vector3.up * (stepHeight + 0.1f), boxSize / 2, transform.forward, out hitUpper, Quaternion.identity, 0f, groundLayerMask);
 
                 if (isSpaceAboveClear)
                 {
-                    // Ajuster la position du joueur pour monter l'obstacle
+                    // Adjust the player's position to step over the obstacle
                     Vector3 newPosition = transform.position;
-                    newPosition.y += obstacleHeight;  // Déplacer le joueur vers le haut de la hauteur de l'obstacle
-                    transform.position = newPosition;  // Mettre à jour la position du joueur
+                    newPosition.y += obstacleHeight;  // Move the player up by the obstacle's height
+                    transform.position = newPosition;  // Update the player's position
                 }
                 else
                 {
@@ -436,7 +439,6 @@ public class MovementControls : MonoBehaviour
             }
         }
     }
-
 
     private void Update()
     {

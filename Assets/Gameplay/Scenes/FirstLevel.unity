@@ -27230,11 +27230,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster
       objectReference: {fileID: 0}
+    - target: {fileID: 934749675655159097, guid: 9fec5536c0854c041a8ed2e14ab381df,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2461165288542427254, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
       propertyPath: respawnHandler
       value: 
       objectReference: {fileID: 9208791264209998147}
+    - target: {fileID: 4201023251768013021, guid: 9fec5536c0854c041a8ed2e14ab381df,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5416137827247880496, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -27248,7 +27258,7 @@ PrefabInstance:
     - target: {fileID: 6349913739205080832, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
       propertyPath: stepHeight
-      value: 3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6349913739205080832, guid: 9fec5536c0854c041a8ed2e14ab381df,
         type: 3}
@@ -27263,7 +27273,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 878904276071760670, guid: 9fec5536c0854c041a8ed2e14ab381df,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1802800229}
   m_SourcePrefab: {fileID: 100100000, guid: 9fec5536c0854c041a8ed2e14ab381df, type: 3}
 --- !u!1 &638911876
 GameObject:
@@ -73967,6 +73981,29 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 637417857}
   m_PrefabAsset: {fileID: 0}
+--- !u!136 &1802800229
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329649161}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.27494383
+  m_Height: 1.0829344
+  m_Direction: 1
+  m_Center: {x: 0.0034761429, y: -0.27397227, z: 0.0898757}
 --- !u!1 &1807053720
 GameObject:
   m_ObjectHideFlags: 0

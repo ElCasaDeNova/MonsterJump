@@ -638,10 +638,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4201023251768013021}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1374778623249460728}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
@@ -724,27 +720,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &4201023251768013021
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878904276071760670}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.7296176, y: 1.1090009, z: 0.56244594}
-  m_Center: {x: 0.011833191, y: -0.2822456, z: 0.064039856}
 --- !u!82 &1374778623249460728
 AudioSource:
   m_ObjectHideFlags: 0
@@ -965,6 +940,13 @@ MonoBehaviour:
   animator: {fileID: 4396374652555241458}
   fallSpeedIncrease: 3
   animationSprintBoost: 1.5
+  stepHeight: 0.5
+  stepCheckDistance: 0.6
+  cameraCollisionRadius: 0.5
+  cameraCollisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  cameraVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2474656650275536067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1022,6 +1004,7 @@ MonoBehaviour:
   playerBody: {fileID: 6161632696907878333}
   damageEffectDuration: 1
   MovementDuration: 0.5
+  originalVoicePitch: 1.5
 --- !u!1 &6161632696907878333 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3066507884734369294, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
