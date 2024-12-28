@@ -5,7 +5,8 @@ public class PieceManager : MonoBehaviour
 {
     [SerializeField]
     private PiecePooler piecePooler;
-
+    [SerializeField]
+    private float pieceValue=1f;
     [SerializeField]
     private AudioClip pieceSound;
     private AudioSource audioSource;
@@ -26,7 +27,8 @@ public class PieceManager : MonoBehaviour
         // Check if the collider is the Player
         if (other.CompareTag("Player"))
         {
-            // TODO: Add points to the score
+            // Add points to the score
+            Score.piecePoints += pieceValue;
 
             // Log the message
             Debug.Log("Piece collected");

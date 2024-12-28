@@ -7,6 +7,8 @@ public class HeadTrigger : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private GameObject agent;
+    [SerializeField]
+    private float killValue = 1f;
     private MovementControls movementControls;
     private CharacterSoundEffect characterSoundEffect;
     private Animator animator;
@@ -31,6 +33,9 @@ public class HeadTrigger : MonoBehaviour
         // Check if the object entering has the tag "Player"
         if (other.CompareTag("Player"))
         {
+            // Add points to the score
+            Score.killPoints+= killValue;
+
             // DeActivate Box Collider for the body
             if (bodyBoxCollider != null)
             {
