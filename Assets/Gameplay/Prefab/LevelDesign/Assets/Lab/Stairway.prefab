@@ -128,7 +128,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.034482718, g: 1, b: 0, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 2.5
   m_Range: 1.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -167,7 +167,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -524,7 +524,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.034482718, g: 1, b: 0, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 2.5
   m_Range: 1.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -563,7 +563,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -640,7 +640,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3626947605842254231}
   m_Layer: 0
-  m_Name: Stairway_Plateform_01
+  m_Name: Stairway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -714,7 +714,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.034482718, g: 1, b: 0, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 2.5
   m_Range: 1.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -753,7 +753,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1051,7 +1051,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.034482718, g: 1, b: 0, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 2.5
   m_Range: 1.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1090,7 +1090,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1

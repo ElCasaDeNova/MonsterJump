@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5325816277035288146}
   m_Layer: 0
-  m_Name: Stairway_Slope
+  m_Name: StairwaySlope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

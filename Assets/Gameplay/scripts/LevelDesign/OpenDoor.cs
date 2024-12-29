@@ -46,7 +46,7 @@ public class OpenDoor : MonoBehaviour
             // If all enemies are disabled, print the message and call the method
             if (allEnemiesDisabled)
             {
-                Debug.Log("it's all good!");
+                //Debug.Log("Door is Opening");
                 OpenNextDoor();
             }
         }

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3585508046946300209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.83, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57,17 +57,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 11.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.92
+      value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
@@ -477,7 +477,7 @@ PrefabInstance:
     - target: {fileID: 5465940246521907071, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.56
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5465940246521907071, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
         type: 3}
@@ -659,6 +659,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2461165288542427254}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1652210683888849357}
   m_SourcePrefab: {fileID: 100100000, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc, type: 3}
 --- !u!4 &538653378530777508 stripped
 Transform:
@@ -940,12 +944,12 @@ MonoBehaviour:
   animator: {fileID: 4396374652555241458}
   fallSpeedIncrease: 3
   animationSprintBoost: 1.5
-  stepHeight: 0.5
-  stepCheckDistance: 0.6
+  stepHeight: 0.35
+  stepCheckDistance: 0.35
   cameraCollisionRadius: 0.5
   cameraCollisionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   cameraVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &2474656650275536067
 MonoBehaviour:
@@ -1005,6 +1009,29 @@ MonoBehaviour:
   damageEffectDuration: 1
   MovementDuration: 0.5
   originalVoicePitch: 1.5
+--- !u!136 &1652210683888849357
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878904276071760670}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.27494383
+  m_Height: 1.0829344
+  m_Direction: 1
+  m_Center: {x: 0.0034761429, y: -0.27397227, z: 0.0898757}
 --- !u!1 &6161632696907878333 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3066507884734369294, guid: be25ecc9ae7b1ed4c8aecd1af796e1fc,
