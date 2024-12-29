@@ -13,9 +13,11 @@ public class PauseMenu : MonoBehaviour
     private GameObject settingsPanel;
     [SerializeField] 
     private Camera mainCamera;
-
     [SerializeField]
     private AudioClip audioClip;
+    [SerializeField]
+    private Chronometer chronometer;
+
     private AudioSource audioSource;
     private float randomVariant;
 
@@ -28,6 +30,9 @@ public class PauseMenu : MonoBehaviour
 
         //Hide Cursor at the beginning of the game
         Cursor.visible = false;
+
+        // Start Chronometer
+        chronometer.StartChronometer();
     }
 
     void Update()
@@ -57,10 +62,14 @@ public class PauseMenu : MonoBehaviour
 
         PlaySound();
         gameUI.SetActive(false);  // Activate the game menu UI
+
+        chronometer.StopChronometer();
     }
 
     public void ResumeGame()
     {
+        
+
         // Hide Cursor
         Cursor.visible = false;
 
@@ -77,6 +86,8 @@ public class PauseMenu : MonoBehaviour
         }
 
         gameUI.SetActive(true);  // Reactivate the game menu UI
+
+        chronometer.StartChronometer();
     }
 
     public void QuitGame()
