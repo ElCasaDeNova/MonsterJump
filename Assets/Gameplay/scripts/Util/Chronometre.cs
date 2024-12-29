@@ -10,7 +10,7 @@ public class Chronometer : MonoBehaviour
         if (isChronometerActive)
         {
             elapsedTime += Time.deltaTime; // Increment elapsed time  
-            Debug.Log(elapsedTime);
+            //Debug.Log(elapsedTime);
         }
     }
 

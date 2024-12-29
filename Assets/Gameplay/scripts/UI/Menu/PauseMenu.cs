@@ -99,7 +99,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Restart()
     {
-        Debug.Log("Reloading Game...");
+        //Debug.Log("Reloading Game...");
         PlaySound();
         SceneLoader.nextScene = "WalkingScene";
         SceneManager.LoadScene("LoadingScene");
@@ -107,7 +107,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        Debug.Log("Returning to Menu...");
+        //Debug.Log("Returning to Menu...");
         PlaySound();
         SceneLoader.nextScene = "Menu";
         SceneManager.LoadScene("LoadingScene");
@@ -115,7 +115,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenSettings()
     {
-        Debug.Log("Settings Opened!");
+        //Debug.Log("Settings Opened!");
         PlaySound();
         settingsPanel.SetActive(!settingsPanel.activeSelf);
         menuButtons.SetActive(!menuButtons.activeSelf);
@@ -127,8 +127,8 @@ public class PauseMenu : MonoBehaviour
         randomVariant = Random.Range(0.5f, 2f);
         audioSource.pitch = randomVariant;
 
-        Debug.Log("randomVariant is " + randomVariant);
-        Debug.Log("audioSource pitch is " + audioSource.pitch);
+        //Debug.Log("randomVariant is " + randomVariant);
+        //Debug.Log("audioSource pitch is " + audioSource.pitch);
 
         audioSource.PlayOneShot(audioClip);
 

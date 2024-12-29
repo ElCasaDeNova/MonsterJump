@@ -20,6 +20,12 @@ public class MenuHandler : MonoBehaviour
     public void PlayGame()
     {
         PlaySound();
+
+        //Reset Score
+        Score.piecePoints = 0;
+        Score.killPoints = 0;
+        Score.time = 0;
+
         SceneLoader.nextScene = "FirstLevel";
         SceneManager.LoadScene("LoadingScene");
     }
