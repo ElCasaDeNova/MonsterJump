@@ -1,27 +1,18 @@
 using TMPro;
 using UnityEngine;
 
-public class TextManager : MonoBehaviour
+public class GameUIManager : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshPro killText;
+    private TMP_Text timeText;
     [SerializeField]
-    private TextMeshPro pieceText;
-    [SerializeField]
-    private TextMeshPro timeText;
+    private TMP_Text pieceText;
 
-    void Start()
+    // Update is called once per frame
+    void Update()
     {
-        // Update the text at the start
-        UpdatekillText();
         UpdatepieceText();
         UpdatetimeText();
-    }
-
-    private void UpdatekillText()
-    {
-        // Update the text with the value of the variable of kill
-        killText.text = Score.killPoints.ToString();
     }
 
     private void UpdatepieceText()
