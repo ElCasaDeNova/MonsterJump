@@ -11,6 +11,7 @@ public class Chronometer : MonoBehaviour
         {
             elapsedTime += Time.deltaTime; // Increment elapsed time  
             //Debug.Log(elapsedTime);
+            Score.time = (int) elapsedTime; // Increment Score
         }
     }
 

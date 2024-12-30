@@ -34,6 +34,9 @@ public class TextManager : MonoBehaviour
     private void UpdatetimeText()
     {
         // Update the text with the value of the variable of the chronometer
-        timeText.text = Score.time.ToString();
+        int minutes = Score.time / 60;
+        int seconds = Score.time % 60;
+
+        timeText.text = minutes + "m " + seconds + "s";
     }
 }
